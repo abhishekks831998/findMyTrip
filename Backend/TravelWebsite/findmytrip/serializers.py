@@ -53,11 +53,11 @@ class PackageSerializer(serializers.ModelSerializer):
 
 
 class BookingSerializer(serializers.ModelSerializer):
-    package = PackageSerializer(read_only=True)
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    #package = PackageSerializer(read_only=True)
+    #user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Booking
-        fields = ['id', 'user', 'package', 'booked_on']
+        fields = ['url', 'user', 'package', 'booked_on','flight_info', 'hotel_info' ,'activity_info']
 
 

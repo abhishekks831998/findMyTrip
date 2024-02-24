@@ -39,9 +39,17 @@ class Package(models.Model):
     flights = models.ManyToManyField(Flight)
     agent = models.ForeignKey(User, on_delete=models.CASCADE, related_name='packages',null=True, blank=True)
 
+    def __str__(self):
+        return self.name
+
 
 # Booking model
 class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bookings',null=True, blank=True)
     package = models.ForeignKey(Package, on_delete=models.CASCADE)
     booked_on = models.DateTimeField(default=timezone.now)
+    flight_info = models.JSONField(default=dict)
+    hotel_info = models.JSONField(default=dict)
+    activity_info = models.JSONField(default=dict)
+    def get_absolute_url(self):
+        return reverse('package-detail', args=[str(self.id)])

@@ -30,4 +30,5 @@ router.register(r'bookings', views.BookingViewSet, basename='booking')
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
     path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls'))
 ]
