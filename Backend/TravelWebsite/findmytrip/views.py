@@ -5,11 +5,13 @@ from .models import Hotel, Flight, Activity, Package, Booking
 from .serializers import HotelSerializer, FlightSerializer, ActivitySerializer, PackageSerializer, BookingSerializer
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsAgent
-from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters, viewsets, generics, status
+from django.http import HttpResponseRedirect
+from django.contrib.auth import logout
 
 def custom_logout(request):
     logout(request)
@@ -35,17 +37,27 @@ class FlightViewSet(viewsets.ModelViewSet):
 class ActivityViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
-
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ["title", "description"]
+    search_fields = ["title", "description"]
 
 class PackageViewSet(viewsets.ModelViewSet):
     queryset = Package.objects.all()
     serializer_class = PackageSerializer
     permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ["name", "duration_in_days", "hotels", "activities", "flights", "agent"]
+    search_fields = ["name", "duration_in_days", "hotels", "activities", "flights", "agent"]
+
 
 class BookingViewSet(viewsets.ModelViewSet):
     serializer_class = BookingSerializer
     permission_classes = [IsAuthenticated]
     queryset = Booking.objects.all()
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ["user", "package", "booked_on"]
+    search_fields = ["user", "package", "booked_on"]
+
 
     def get_queryset(self):
         """

@@ -10,7 +10,8 @@ class Hotel(models.Model):
 
     def __str__(self):
         return self.name
-
+    class Meta:
+        ordering = ['name']
 
 # Flight model
 class Flight(models.Model):
@@ -19,7 +20,8 @@ class Flight(models.Model):
 
     def __str__(self):
         return self.airline + ' ' + self.flight_number
-
+    class Meta:
+        ordering = ['flight_number']
 
 # Activity model
 class Activity(models.Model):
@@ -28,6 +30,8 @@ class Activity(models.Model):
 
     def __str__(self):
         return self.title
+    class Meta:
+        ordering = ['title']
 
 
 # Package model
