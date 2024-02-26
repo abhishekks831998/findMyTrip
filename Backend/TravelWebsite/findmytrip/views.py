@@ -20,12 +20,17 @@ def custom_logout(request):
 class HotelViewSet(viewsets.ModelViewSet):
     queryset = Hotel.objects.all()
     serializer_class = HotelSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ["name", "address"]
+    search_fields = ["name", "address"]
 
 
 class FlightViewSet(viewsets.ModelViewSet):
     queryset = Flight.objects.all()
     serializer_class = FlightSerializer
-
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ["flight_number", "airline"]
+    search_fields = ["flight_number", "airline"]
 
 class ActivityViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.all()
