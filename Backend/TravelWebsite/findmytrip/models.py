@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.contrib.auth.models import User as BaseUser
 
 
 # Hotel model
@@ -57,3 +58,11 @@ class Booking(models.Model):
     activity_info = models.JSONField(default=dict)
     def get_absolute_url(self):
         return reverse('package-detail', args=[str(self.id)])
+
+class User(models.Model):
+    id = models.OneToOneField(BaseUser, on_delete=models.CASCADE, primary_key=True)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+
+    class Meta:
+        ordering = ['id']

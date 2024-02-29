@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from .models import Hotel, Flight, Activity, Package, Booking
-from .serializers import HotelSerializer, FlightSerializer, ActivitySerializer, PackageSerializer, BookingSerializer
+from .serializers import HotelSerializer, FlightSerializer, ActivitySerializer, PackageSerializer, BookingSerializer, RegisterSerializer
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsAgent
 from rest_framework.decorators import action
@@ -12,6 +12,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, viewsets, generics, status
 from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
+from django.contrib.auth.models import User as BaseUser
 
 def custom_logout(request):
     logout(request)
@@ -105,4 +106,6 @@ class BookingViewSet(viewsets.ModelViewSet):
                         status=status.HTTP_201_CREATED)
 
 
-
+class RegisterViewSet(viewsets.ModelViewSet):
+    queryset = BaseUser.objects.all()
+    serializer_class = RegisterSerializer

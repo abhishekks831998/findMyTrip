@@ -26,9 +26,10 @@ router.register(r'flights', views.FlightViewSet)
 router.register(r'activities', views.ActivityViewSet)
 router.register(r'packages', views.PackageViewSet)
 router.register(r'bookings', views.BookingViewSet, basename='booking')
-
+router.register(r'register', views.RegisterViewSet, basename='register')
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls'))
 ]
