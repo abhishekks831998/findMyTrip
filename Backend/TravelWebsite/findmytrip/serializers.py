@@ -65,9 +65,10 @@ class BookingSerializer(serializers.ModelSerializer):
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = BaseUser
-        fields = ('id', 'first_name', 'last_name','username', 'email', 'password')
+        fields = ('id', 'first_name', 'last_name', 'is_staff', 'username', 'email', 'password')
         extra_kwargs = {'first_name': {'required': True},
                         'last_name': {'required': True},
+                        'is_staff': {'required': True},
                         'username': {'required': True},
                         'email': {'required': True},
                         'password': {'write_only': True}}

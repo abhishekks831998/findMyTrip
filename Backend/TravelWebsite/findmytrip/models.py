@@ -63,6 +63,7 @@ class User(models.Model):
     id = models.OneToOneField(BaseUser, on_delete=models.CASCADE, primary_key=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
+    is_staff = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['id']
