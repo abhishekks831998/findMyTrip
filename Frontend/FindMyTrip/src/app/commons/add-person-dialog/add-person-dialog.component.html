@@ -1,0 +1,31 @@
+<!-- add-person-dialog.component.html -->
+<h2>{{ data ? 'Edit Person' : 'Add Person' }}</h2>
+
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="First Name" [(ngModel)]="firstName" name="firstName">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Last Name" [(ngModel)]="lastName" name="lastName">
+      </mat-form-field>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <input matInput type="date" placeholder="Date of Birth" [(ngModel)]="dob" name="dob">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button mat-raised-button color="primary" (click)="onAdd()">{{ data ? 'Save' : 'Add' }}</button>
+    </div>
+  </div>
+

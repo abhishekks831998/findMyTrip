@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',  # Added the rest_framework
+    "rest_framework.authtoken",
     'TravelWebsite.findmytrip',  # Added the findmytrip app
     'django_filters',  # Added the django_filters
 ]
@@ -46,7 +48,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
+        #'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ],
     'DEFAULT_FILTER_BACKENDS': [
@@ -54,7 +56,14 @@ REST_FRAMEWORK = {
     ]
 }
 
-MIDDLEWARE = [
+CSRF_TRUSTED_ORIGINS = [
+        'chrome-extension://ehafadccdcdedbhcbddihehiodgcddpl',
+        'http://localhost:4200'
+]
+
+
+
+MIDDLEWARE = ['corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -63,7 +72,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+CORS_ORIGIN_ALLOW_ALL = True
 LOGOUT_REDIRECT_URL = '/'  # Added the logout redirect url
 ROOT_URLCONF = 'TravelWebsite.urls'
 

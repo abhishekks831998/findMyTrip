@@ -1,0 +1,41 @@
+<!-- booking-form.component.html -->
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="flightInfo">Guest Info</label>
+        
+          <app-guests [people]="people" (addPerson)="openDialog()" (deletePerson)="deletePerson($event)"></app-guests>
+        
+      </div>
+    </div>
+  </div>
+
+<form (ngSubmit)="submitForm()" #bookingForm="ngForm" class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="userId">User ID</label>
+          <input type="number" class="form-control" id="userId" name="userId" [(ngModel)]="formData.user_id" required>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="packageId">Package ID</label>
+          <input type="number" class="form-control" id="packageId" name="packageId" [(ngModel)]="formData.package" required>
+        </div>
+      </div>
+    </div>
+  
+    
+    
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <button type="submit" class="btn btn-primary" [disabled]="bookingForm.invalid">Submit</button>
+      </div>
+    </div>
+  </form>
+  
