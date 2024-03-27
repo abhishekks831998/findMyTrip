@@ -11,12 +11,18 @@ import { AppComponent } from './app.component';
 import { HeaderModule } from './header/header.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog'; // Import MatDialogModule
-import { BookingModule } from './booking/booking.module'
+import { BookingModule } from './booking/booking.module';
+import { PackageComponent } from './package/package.component';
+import { ShowPackagesComponent } from './package/show-packages/show-packages.component';
+import { AddEditPackagesComponent } from './package/add-edit-packages/add-edit-packages.component'
 
  
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PackageComponent,
+    ShowPackagesComponent,
+    AddEditPackagesComponent
   ],
   imports: [
     BookingModule,

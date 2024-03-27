@@ -14,6 +14,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
 from django.contrib.auth.models import User as BaseUser
 
+
 def custom_logout(request):
     logout(request)
     # Redirect to homepage or login page after logout
@@ -35,12 +36,14 @@ class FlightViewSet(viewsets.ModelViewSet):
     filterset_fields = ["flight_number", "airline"]
     search_fields = ["flight_number", "airline"]
 
+
 class ActivityViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["title", "description"]
     search_fields = ["title", "description"]
+
 
 class PackageViewSet(viewsets.ModelViewSet):
     queryset = Package.objects.all()
