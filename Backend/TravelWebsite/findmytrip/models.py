@@ -40,9 +40,9 @@ class Package(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=300,default='')
     duration_in_days = models.PositiveIntegerField(default=1)
-    hotels = models.JSONField(default=dict)
-    activities = models.JSONField(default=dict)
-    flights = models.JSONField(default=dict)
+    hotels = models.JSONField(default=list)
+    activities = models.JSONField(default=list)
+    flights = models.JSONField(default=list)
     image = models.ImageField(blank=True,default='media/default_image.jpg')
 
     def __str__(self):

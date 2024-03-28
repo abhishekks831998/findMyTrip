@@ -27,9 +27,9 @@ export class ShowPackagesComponent implements OnInit {
       name: "",
       description: "",
       duration_in_days: 0,
-      hotels: [],
-      flights: [],
-      activities: [],
+      hotels: {},
+      flights: {},
+      activities: {},
       image: ""
     }
     this.ModelTitle = "Add Package";
@@ -41,6 +41,7 @@ export class ShowPackagesComponent implements OnInit {
   this.package = data;
   this.ActivateAddEditPackageComp = true;
   this.ModelTitle = "Edit Package";
+
   }
 
   deletePackage(packageId: number): void {

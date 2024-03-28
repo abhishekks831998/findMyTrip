@@ -18,43 +18,69 @@
         <option *ngFor="let hotel of hotels" [value]="hotel.name">{{ hotel.name }}</option>
       </select>
     </div>
-
-   <div class="form-group">
-  <label for="hotelSelect">Select Hotel(s)</label>
-  <select class="form-control" id="hotelSelect" (change)="onHotelSelected($event)">
-    <option *ngFor="let hotel of hotels" [value]="hotel.name">{{ hotel.name }}</option>
-  </select>
-</div>
-
     <div class="form-group mt-3">
-      <label>Selected Hotels</label>
-      <div id="selectedHotels" class="selected-hotels-list">
-        <div class="selected-hotel d-flex justify-content-between align-items-center mb-2" *ngFor="let hotelName of selectedHotels; let i = index">
-          <span class="hotel-name">{{ hotelName }}</span>
-          <button class="btn btn-outline-danger btn-sm" (click)="removeHotel(i)"><i class="bi bi-x-circle-fill"></i>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-          </svg>
-          </button>
-        </div>
-      </div>
+          <label>Selected Hotels</label>
+          <div id="selectedHotels" class="selected-hotels-list">
+          <div *ngFor="let hotelName of selectedHotels|keyvalue" class="selected-hotel d-flex justify-content-between align-items-center mb-2">
+            <span class="hotel-name">{{ hotelName.key }}</span>
+            <button class="btn btn-outline-danger btn-sm" (click)="removeHotel(hotelName.key)">
+               <i class="bi bi-x-circle-fill"></i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+              </svg>
+            </button>
+          </div>
+          </div>
     </div>
     <div class="form-group">
       <label for="flightSelect">Select Flight(s)</label>
-      <select multiple class="form-control" id="flightSelect" [(ngModel)]="package.flights" name="flights">
-        <option *ngFor="let flight of flights; let i = index" [value]="i">{{ flight.flight_number + " " + flight.airline}}</option>
+      <select class="form-control" id="flightSelect" (change)="onFlightSelected($event)">
+        <option *ngFor="let flight of flights" [value]="flight.flight_number + flight.airline">{{ flight.flight_number + flight.airline}}</option>
       </select>
     </div>
+    <div class="form-group mt-3">
+          <label>Selected Flights</label>
+          <div id="selectedFlights" class="selected-hotels-list">
+          <div *ngFor="let flightName of selectedFlights | keyvalue" class="selected-hotel d-flex justify-content-between align-items-center mb-2">
+            <span class="hotel-name">{{ flightName.key }}</span>
+            <button class="btn btn-outline-danger btn-sm" (click)="removeFlight(flightName.key)">
+               <i class="bi bi-x-circle-fill"></i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+              </svg>
+            </button>
+          </div>
+          </div>
+    </div>
     <div class="form-group">
-      <label for="activitySelect">Select Activities(s)</label>
-      <select multiple class="form-control" id="activitySelect" [(ngModel)]="package.activities" name="activities">
-        <option *ngFor="let activity of activities; let i = index" [value]="i">{{ activity.title }}</option>
+      <label for="activitySelect">Select Activity(s)</label>
+      <select class="form-control" id="activitySelect" (change)="onActivitySelected($event)">
+        <option *ngFor="let activity of activities" [value]="activity.title">{{activity.title }}</option>
       </select>
+    </div>
+    <div class="form-group mt-3">
+          <label>Selected Activities</label>
+          <div id="selectedActivities" class="selected-hotels-list">
+          <div *ngFor="let activity of selectedActivities | keyvalue" class="selected-hotel d-flex justify-content-between align-items-center mb-2">
+            <span class="hotel-name">{{ activity.key }}</span>
+            <button class="btn btn-outline-danger btn-sm" (click)="removeActivity(activity.key)">
+               <i class="bi bi-x-circle-fill"></i>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                  </svg>
+            </button>
+          </div>
+          </div>
     </div>
     <div class="form-group">
       <label for="packageImage">Image</label>
       <input type="file" class="file-upload" id="packageImage" (change)="onFileSelected($event)" name="image">
     </div>
-    <button type="submit" class="btn btn-primary">{{ package ? 'Add' : 'Update' }}</button>
+     <button (click) ="addPackage()" *ngIf="package.id==0" class="btn btn-primary">
+      Add
+    </button>
+    <button (click) ="updatePackage()" *ngIf="package.id!=0" class="btn btn-primary">
+      Update
+    </button>
   </form>
 </div>
