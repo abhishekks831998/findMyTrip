@@ -2,6 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import {PackageService} from "../package.service";
 import {of} from "rxjs";
 
+interface Hotel {
+  name: string;
+}
+
 @Component({
   selector: 'app-add-edit-packages',
   templateUrl: './add-edit-packages.component.html',
@@ -13,10 +17,12 @@ export class AddEditPackagesComponent implements OnInit{
   name: string | undefined;
   description: string | undefined;
   duration_in_days: number | undefined;
-  hotels : any[] | [] | undefined;
+  hotels : Hotel[] | [] | undefined;
   flights : any[] | [] | undefined;
   activities : any[] | undefined;
   image: string | undefined;
+  selectedHotelsText = '';
+  selectedHotels: Hotel[] = [];
 
   constructor(private service: PackageService) { }
 
@@ -35,6 +41,25 @@ export class AddEditPackagesComponent implements OnInit{
     // this.service.addPackage(add).subscribe(res => {
     //   alert(res.toString());
     // });
+  }
+
+   onHotelSelected(event:any): void {
+    const selectedHotelName = event.target.value;
+    console.log(selectedHotelName);
+    if (selectedHotelName && !this.selectedHotels.includes(selectedHotelName)) {
+      this.selectedHotels.push(selectedHotelName);
+      this.selectedHotelsText += (this.selectedHotelsText ? ', ' : '') + selectedHotelName;
+      console.log(this.selectedHotelsText);
+    }
+  }
+  removeHotel(index: number): void {
+  this.selectedHotels.splice(index, 1);
+  this.updateSelectedHotelsText();
+  }
+
+  updateSelectedHotelsText(): void {
+    this.selectedHotelsText = this.selectedHotels.join(', ');
+    console.log(this.selectedHotelsText);
   }
 
   onSubmit() {
@@ -60,7 +85,7 @@ export class AddEditPackagesComponent implements OnInit{
     }
     onFileSelected(event: Event): void {
     // @ts-ignore
-      const file:File = event.target.files[0];
+      const file:File = Event.files[0];
         if (file) {
           this.image = file.name;
         }

@@ -12,11 +12,32 @@
       <label for="packageDuration">Duration in Days</label>
       <input type="number" class="form-control" id="packageDuration" placeholder="Duration" [(ngModel)]="duration_in_days" name="duration_in_days" required min="1">
     </div>
-    <div class="form-group">
+   <div class="form-group">
       <label for="hotelSelect">Select Hotel(s)</label>
-      <select multiple class="form-control" id="hotelSelect" [(ngModel)]="package.hotels" name="hotels">
-        <option *ngFor="let hotel of hotels; let i = index" [value]="i">{{ hotel.name }}</option>
+      <select class="form-control" id="hotelSelect" (change)="onHotelSelected($event)">
+        <option *ngFor="let hotel of hotels" [value]="hotel.name">{{ hotel.name }}</option>
       </select>
+    </div>
+
+   <div class="form-group">
+  <label for="hotelSelect">Select Hotel(s)</label>
+  <select class="form-control" id="hotelSelect" (change)="onHotelSelected($event)">
+    <option *ngFor="let hotel of hotels" [value]="hotel.name">{{ hotel.name }}</option>
+  </select>
+</div>
+
+    <div class="form-group mt-3">
+      <label>Selected Hotels</label>
+      <div id="selectedHotels" class="selected-hotels-list">
+        <div class="selected-hotel d-flex justify-content-between align-items-center mb-2" *ngFor="let hotelName of selectedHotels; let i = index">
+          <span class="hotel-name">{{ hotelName }}</span>
+          <button class="btn btn-outline-danger btn-sm" (click)="removeHotel(i)"><i class="bi bi-x-circle-fill"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+          </svg>
+          </button>
+        </div>
+      </div>
     </div>
     <div class="form-group">
       <label for="flightSelect">Select Flight(s)</label>

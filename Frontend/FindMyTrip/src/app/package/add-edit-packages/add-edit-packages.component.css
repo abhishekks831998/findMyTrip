@@ -65,3 +65,28 @@ select[multiple] {
 .p-20 {
   padding: 20px;
 }
+.selected-hotels-list {
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  padding: .5rem;
+  background-color: #f8f9fa;
+}
+
+.selected-hotel {
+  background-color: #e9ecef;
+  border-radius: .25rem;
+  padding: .375rem .75rem;
+  transition: background-color .15s ease-in-out;
+}
+
+.selected-hotel:hover {
+  background-color: #dde2e6;
+}
+
+.hotel-name {
+  margin-right: .5rem;
+}
+
+.btn-outline-danger {
+  font-size: .875rem;
+}
