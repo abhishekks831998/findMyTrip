@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,7 +16,7 @@ import { PackageComponent } from './package/package.component';
 import { ShowPackagesComponent } from './package/show-packages/show-packages.component';
 import { AddEditPackagesComponent } from './package/add-edit-packages/add-edit-packages.component'
 
- 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +35,8 @@ import { AddEditPackagesComponent } from './package/add-edit-packages/add-edit-p
     MatDialogModule,
     BrowserModule,
     MatToolbarModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

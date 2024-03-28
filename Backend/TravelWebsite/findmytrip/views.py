@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 from .models import Hotel, Flight, Activity, Package, Booking
@@ -10,7 +11,7 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, viewsets, generics, status
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth import logout
 from django.contrib.auth.models import User as BaseUser
 
@@ -50,9 +51,16 @@ class PackageViewSet(viewsets.ModelViewSet):
     serializer_class = PackageSerializer
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    filterset_fields = ["name", "duration_in_days", "hotels", "activities", "flights", "agent"]
-    search_fields = ["name", "duration_in_days", "hotels", "activities", "flights", "agent"]
+    filterset_fields = ["name", "duration_in_days"]
+    search_fields = ["name", "duration_in_days"]
 
+@csrf_exempt
+def package_upload(request):
+    if request.method == 'POST':
+        # Access file with request.FILES['image'] if 'image' is the field name
+        image = request.FILES.get('image')
+        # Process the rest of the form data and save your model instance
+        return JsonResponse({'message': 'Package created/updated successfully'})
 
 class BookingViewSet(viewsets.ModelViewSet):
     serializer_class = BookingSerializer

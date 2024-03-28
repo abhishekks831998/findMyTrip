@@ -38,11 +38,12 @@ class Activity(models.Model):
 # Package model
 class Package(models.Model):
     name = models.CharField(max_length=100)
+    description = models.TextField(max_length=300,default='')
     duration_in_days = models.PositiveIntegerField(default=1)
-    hotels = models.ManyToManyField(Hotel)
-    activities = models.ManyToManyField(Activity)
-    flights = models.ManyToManyField(Flight)
-    agent = models.ForeignKey(User, on_delete=models.CASCADE, related_name='packages',null=True, blank=True)
+    hotels = models.JSONField(default=dict)
+    activities = models.JSONField(default=dict)
+    flights = models.JSONField(default=dict)
+    image = models.ImageField(blank=True,default='media/default_image.jpg')
 
     def __str__(self):
         return self.name
@@ -56,6 +57,7 @@ class Booking(models.Model):
     guest_info = models.JSONField(default=dict)
     def get_absolute_url(self):
         return reverse('package-detail', args=[str(self.id)])
+
 
 class User(models.Model):
     id = models.OneToOneField(BaseUser, on_delete=models.CASCADE, primary_key=True)

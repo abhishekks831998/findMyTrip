@@ -1,1 +1,39 @@
-<p>add-edit-packages works!</p>
+<div class="container">
+  <form (submit)="onSubmit()" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="packageName">Name</label>
+      <input type="text" class="form-control" id="packageName" placeholder="Enter package name" [(ngModel)]="name" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="packageDescription">Description</label>
+      <textarea class="form-control" id="packageDescription" rows="3" placeholder="Enter description" [(ngModel)]="description" name="description" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="packageDuration">Duration in Days</label>
+      <input type="number" class="form-control" id="packageDuration" placeholder="Duration" [(ngModel)]="duration_in_days" name="duration_in_days" required min="1">
+    </div>
+    <div class="form-group">
+      <label for="hotelSelect">Select Hotel(s)</label>
+      <select multiple class="form-control" id="hotelSelect" [(ngModel)]="package.hotels" name="hotels">
+        <option *ngFor="let hotel of hotels; let i = index" [value]="i">{{ hotel.name }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="flightSelect">Select Flight(s)</label>
+      <select multiple class="form-control" id="flightSelect" [(ngModel)]="package.flights" name="flights">
+        <option *ngFor="let flight of flights; let i = index" [value]="i">{{ flight.flight_number + " " + flight.airline}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="activitySelect">Select Activities(s)</label>
+      <select multiple class="form-control" id="activitySelect" [(ngModel)]="package.activities" name="activities">
+        <option *ngFor="let activity of activities; let i = index" [value]="i">{{ activity.title }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="packageImage">Image</label>
+      <input type="file" class="file-upload" id="packageImage" (change)="onFileSelected($event)" name="image">
+    </div>
+    <button type="submit" class="btn btn-primary">{{ package ? 'Add' : 'Update' }}</button>
+  </form>
+</div>
