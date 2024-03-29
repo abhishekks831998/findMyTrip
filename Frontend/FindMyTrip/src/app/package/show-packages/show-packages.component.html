@@ -3,7 +3,7 @@
   <button type="button" class="btn btn-primary float-right m-2"
         data-toggle="modal" data-target="#exampleModal"
         (click) = "addClick()" data-backdrop="static" data-keyboard="false">
-  Add Hotel
+  Create Packages
 </button>
 </div>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -39,6 +39,6 @@
         </button>
       </div>
     </div>
-    <p>{{ package.name }}</p>
+    <p class="package-name">{{ package.name }}</p>
   </div>
 </div>

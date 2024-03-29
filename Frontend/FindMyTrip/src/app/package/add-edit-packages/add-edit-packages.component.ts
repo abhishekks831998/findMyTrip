@@ -3,13 +3,16 @@ import {PackageService} from "../package.service";
 import {of} from "rxjs";
 
 interface Hotel {
+  id: number;
   name: string;
 }
 interface Flight {
+  id: number;
   flight_number: string;
   airline: string;
 }
 interface Activity {
+  id: number;
   title: string;
 }
 
@@ -18,6 +21,7 @@ interface Activity {
   templateUrl: './add-edit-packages.component.html',
   styleUrl: './add-edit-packages.component.css'
 })
+
 export class AddEditPackagesComponent implements OnInit{
   @Input() package: any;
   id: number | undefined;

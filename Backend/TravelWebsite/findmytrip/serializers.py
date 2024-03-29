@@ -36,7 +36,6 @@ class BookingSerializer(serializers.ModelSerializer):
         fields = ['url', 'user', 'package', 'booked_on','guest_info']
 
 
-
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = BaseUser

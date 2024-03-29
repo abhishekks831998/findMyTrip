@@ -40,10 +40,10 @@ class Package(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=300,default='')
     duration_in_days = models.PositiveIntegerField(default=1)
-    hotels = models.JSONField(default=list)
-    activities = models.JSONField(default=list)
-    flights = models.JSONField(default=list)
-    image = models.ImageField(blank=True,default='media/default_image.jpg')
+    hotels = models.ManyToManyField(Hotel)
+    activities = models.ManyToManyField(Activity)
+    flights = models.ManyToManyField(Flight)
+    image = models.ImageField(blank=True, default='media/default_image.jpg')
 
     def __str__(self):
         return self.name
