@@ -15,10 +15,10 @@ import { BookingModule } from './booking/booking.module';
 import { PackageComponent } from './package/package.component';
 import { ShowPackagesComponent } from './package/show-packages/show-packages.component';
 import { AddEditPackagesComponent } from './package/add-edit-packages/add-edit-packages.component';
-import { FlightComponent } from './flight/flight.component';
-import { AddEditFlightComponent } from './flight/add-edit-flight/add-edit-flight.component';
-import { ShowFlightComponent } from './flight/show-flight/show-flight.component';
-import { HotelComponent } from './hotel/hotel.component'
+import { HotelComponent } from './hotel/hotel.component';
+import { HomeComponent } from './home/home.component';
+import { AddEditHotelComponent } from './hotel/add-edit-hotel/add-edit-hotel.component';
+import { ShowHotelComponent } from './hotel/show-hotel/show-hotel.component'
 
 
 @NgModule({
@@ -27,10 +27,10 @@ import { HotelComponent } from './hotel/hotel.component'
     PackageComponent,
     ShowPackagesComponent,
     AddEditPackagesComponent,
-    FlightComponent,
-    AddEditFlightComponent,
-    ShowFlightComponent,
-    HotelComponent
+    HotelComponent,
+    HomeComponent,
+    AddEditHotelComponent,
+    ShowHotelComponent
   ],
   imports: [
     BookingModule,
