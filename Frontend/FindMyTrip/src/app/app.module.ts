@@ -19,6 +19,9 @@ import { HotelComponent } from './hotel/hotel.component';
 import { HomeComponent } from './home/home.component';
 import { AddEditHotelComponent } from './hotel/add-edit-hotel/add-edit-hotel.component';
 import { ShowHotelComponent } from './hotel/show-hotel/show-hotel.component'
+import {FlightComponent} from "./flight/flight.component";
+import {AddEditFlightComponent} from "./flight/add-edit-flight/add-edit-flight.component";
+import {ShowFlightComponent} from "./flight/show-flight/show-flight.component";
 
 
 @NgModule({
@@ -29,6 +32,9 @@ import { ShowHotelComponent } from './hotel/show-hotel/show-hotel.component'
     AddEditPackagesComponent,
     HotelComponent,
     HomeComponent,
+    FlightComponent,
+    AddEditFlightComponent,
+    ShowFlightComponent,
     AddEditHotelComponent,
     ShowHotelComponent
   ],

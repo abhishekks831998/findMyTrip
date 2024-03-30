@@ -11,7 +11,7 @@ describe('ShowFlightComponent', () => {
       declarations: [ShowFlightComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(ShowFlightComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

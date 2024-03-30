@@ -26,4 +26,20 @@ readonly APIUrl = "http://127.0.0.1:8000";
   getAllHotelNames():Observable<any[]>{
     return this.http.get<any>(this.APIUrl + '/hotels/');
   }
+   getFlightList():Observable<any[]>{
+    return this.http.get<any>(this.APIUrl + '/flights/');
+  }
+  addFlight(val:any){
+    return this.http.post(this.APIUrl + '/flights/',val);
+  }
+  updateFlight(val: any, pk: number | undefined){
+    return this.http.put(this.APIUrl + '/flights/'+pk+'/',val);
+  }
+  deleteFlight(val:any){
+    return this.http.delete(this.APIUrl + '/flights/'+val);
+  }
+
+  getAllFlightNames():Observable<any[]>{
+    return this.http.get<any>(this.APIUrl + '/flights/');
+  }
 }
