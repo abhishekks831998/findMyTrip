@@ -17,7 +17,8 @@ import { ShowPackagesComponent } from './package/show-packages/show-packages.com
 import { AddEditPackagesComponent } from './package/add-edit-packages/add-edit-packages.component';
 import { FlightComponent } from './flight/flight.component';
 import { AddEditFlightComponent } from './flight/add-edit-flight/add-edit-flight.component';
-import { ShowFlightComponent } from './flight/show-flight/show-flight.component'
+import { ShowFlightComponent } from './flight/show-flight/show-flight.component';
+import { HotelComponent } from './hotel/hotel.component'
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { ShowFlightComponent } from './flight/show-flight/show-flight.component'
     AddEditPackagesComponent,
     FlightComponent,
     AddEditFlightComponent,
-    ShowFlightComponent
+    ShowFlightComponent,
+    HotelComponent
   ],
   imports: [
     BookingModule,
