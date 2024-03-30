@@ -22,6 +22,9 @@ import { ShowHotelComponent } from './hotel/show-hotel/show-hotel.component'
 import {FlightComponent} from "./flight/flight.component";
 import {AddEditFlightComponent} from "./flight/add-edit-flight/add-edit-flight.component";
 import {ShowFlightComponent} from "./flight/show-flight/show-flight.component";
+import { ActivityComponent } from './activity/activity.component';
+import { ShowActivityComponent } from './activity/show-activity/show-activity.component';
+import { AddEditActivityComponent } from './activity/add-edit-activity/add-edit-activity.component';
 
 
 @NgModule({
@@ -36,7 +39,10 @@ import {ShowFlightComponent} from "./flight/show-flight/show-flight.component";
     AddEditFlightComponent,
     ShowFlightComponent,
     AddEditHotelComponent,
-    ShowHotelComponent
+    ShowHotelComponent,
+    ActivityComponent,
+    ShowActivityComponent,
+    AddEditActivityComponent
   ],
   imports: [
     BookingModule,

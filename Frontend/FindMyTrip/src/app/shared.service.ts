@@ -42,4 +42,20 @@ readonly APIUrl = "http://127.0.0.1:8000";
   getAllFlightNames():Observable<any[]>{
     return this.http.get<any>(this.APIUrl + '/flights/');
   }
+  getActivityList():Observable<any[]>{
+    return this.http.get<any>(this.APIUrl + '/activities/');
+  }
+  addActivity(val:any){
+    return this.http.post(this.APIUrl + '/activities/',val);
+  }
+  updateActivity(val: any, pk: number | undefined){
+    return this.http.put(this.APIUrl + '/activities/'+pk+'/',val);
+  }
+  deleteActivity(val:any){
+    return this.http.delete(this.APIUrl + '/activities/'+val);
+  }
+
+  getAllActivityNames():Observable<any[]>{
+    return this.http.get<any>(this.APIUrl + '/activities/');
+  }
 }
