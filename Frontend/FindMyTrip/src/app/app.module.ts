@@ -14,7 +14,8 @@ import { MatDialogModule } from '@angular/material/dialog'; // Import MatDialogM
 import { BookingModule } from './booking/booking.module';
 import { PackageComponent } from './package/package.component';
 import { ShowPackagesComponent } from './package/show-packages/show-packages.component';
-import { AddEditPackagesComponent } from './package/add-edit-packages/add-edit-packages.component'
+import { AddEditPackagesComponent } from './package/add-edit-packages/add-edit-packages.component';
+import { FlightComponent } from './flight/flight.component'
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { AddEditPackagesComponent } from './package/add-edit-packages/add-edit-p
     AppComponent,
     PackageComponent,
     ShowPackagesComponent,
-    AddEditPackagesComponent
+    AddEditPackagesComponent,
+    FlightComponent
   ],
   imports: [
     BookingModule,
