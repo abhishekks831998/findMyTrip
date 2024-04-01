@@ -1,0 +1,12 @@
+/* hotel.component.css */
+.hotel-header {
+  text-align: center;
+  padding: 50px;
+  background-color: #f8f9fa; /* light grey background, you can choose your color */
+  margin-bottom: 30px; /* Spacing between header and the next content */
+}
+
+.hotel-header h1 {
+  font-size: 2.5rem; /* Large font size for the heading */
+  color: #343a40; /* Adjust the color to fit your design */
+}

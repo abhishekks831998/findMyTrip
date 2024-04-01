@@ -14,7 +14,17 @@ import { MatDialogModule } from '@angular/material/dialog'; // Import MatDialogM
 import { BookingModule } from './booking/booking.module';
 import { PackageComponent } from './package/package.component';
 import { ShowPackagesComponent } from './package/show-packages/show-packages.component';
-import { AddEditPackagesComponent } from './package/add-edit-packages/add-edit-packages.component'
+import { AddEditPackagesComponent } from './package/add-edit-packages/add-edit-packages.component';
+import { HotelComponent } from './hotel/hotel.component';
+import { HomeComponent } from './home/home.component';
+import { AddEditHotelComponent } from './hotel/add-edit-hotel/add-edit-hotel.component';
+import { ShowHotelComponent } from './hotel/show-hotel/show-hotel.component'
+import {FlightComponent} from "./flight/flight.component";
+import {AddEditFlightComponent} from "./flight/add-edit-flight/add-edit-flight.component";
+import {ShowFlightComponent} from "./flight/show-flight/show-flight.component";
+import { ActivityComponent } from './activity/activity.component';
+import { ShowActivityComponent } from './activity/show-activity/show-activity.component';
+import { AddEditActivityComponent } from './activity/add-edit-activity/add-edit-activity.component';
 
 
 @NgModule({
@@ -22,7 +32,17 @@ import { AddEditPackagesComponent } from './package/add-edit-packages/add-edit-p
     AppComponent,
     PackageComponent,
     ShowPackagesComponent,
-    AddEditPackagesComponent
+    AddEditPackagesComponent,
+    HotelComponent,
+    HomeComponent,
+    FlightComponent,
+    AddEditFlightComponent,
+    ShowFlightComponent,
+    AddEditHotelComponent,
+    ShowHotelComponent,
+    ActivityComponent,
+    ShowActivityComponent,
+    AddEditActivityComponent
   ],
   imports: [
     BookingModule,

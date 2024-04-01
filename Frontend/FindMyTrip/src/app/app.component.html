@@ -1,9 +1,25 @@
-<!-- app.component.html -->
-<mat-toolbar color="primary">
-  <span>Find My Trip</span>
-  <button mat-button routerLink="/bookings">Bookings</button>
-  <button mat-button routerLink="/packages">Packages</button>
-</mat-toolbar>
+ <nav class="navbar">
+       <a href="/home" class="navbar-item">
+      <i class="fas fa-home"></i> FIND MY TRIP
+    </a>
+  <div class="navbar-menu">
+    <a href="/bookings" class="navbar-item">
+      <i class="fas fa-calendar-check"></i> Bookings
+    </a>
+    <a href="/packages" class="navbar-item">
+      <i class="fas fa-suitcase-rolling"></i> Packages
+    </a>
+    <a href="/hotels" class="navbar-item">
+      <i class="fas fa-hotel"></i> Hotels
+    </a>
+     <a href="/flights" class="navbar-item">
+      <i class="fas fa-plane"></i> Flights
+    </a>
+    <a href="/activities" class="navbar-item">
+      <i class="fas fa-coffee"></i> Activity
+    </a>
+  </div>
+</nav>
 <div>
   <router-outlet></router-outlet>
 </div>
