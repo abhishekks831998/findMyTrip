@@ -23,21 +23,22 @@ interface Activity {
 })
 
 export class AddEditPackagesComponent implements OnInit{
+
   @Input() package: any;
   id: number | undefined;
   name: string | undefined;
   description: string | undefined;
   duration_in_days: number | undefined;
-  hotels : Hotel[] | [] | undefined;
-  flights : Flight[] | [] | undefined;
-  activities : Activity[] | undefined;
+  hotels : number[] | [] | undefined;
+  flights : number[] | [] | undefined;
+  activities : number[] | undefined;
   image: string | undefined;
-  selectedHotelsText = '';
-  selectedFlightsText = '';
-  selectedActivitiesText = '';
-  selectedHotels: { [key: string]: boolean } = {};
-  selectedFlights: { [key: string]: boolean } = {};
-  selectedActivities: { [key: string]: boolean } = {};
+  selectedHotels : number[] = [];
+  selectedFlights : number[] = [];
+  selectedActivities : number[] = [];
+  hotelsDict: any | {} | undefined;
+  flightsDict: any | {} | undefined;
+  activitiesDict: any | {} | undefined;
 
   constructor(private service: PackageService) { }
 
@@ -53,47 +54,38 @@ export class AddEditPackagesComponent implements OnInit{
       image:this.image
     };
     console.log(add);
-    this.service.addPackage(add,this.image).subscribe(res => {
-      alert(res.toString());
-    });
+    // this.service.addPackage(add,this.image).subscribe(res => {
+    //   alert(res.toString());
+    // });
   }
-
    onHotelSelected(event: any): void {
-     const selectedHotelName = event.target.value;
-     if (selectedHotelName && !this.selectedHotels[selectedHotelName]) {
-       this.selectedHotels[selectedHotelName] = true;
-       this.selectedHotelsText = Object.keys(this.selectedHotels).join(', ');
+     let ID: number = event.target.value;
+     if (ID && !this.selectedHotels.includes(ID)) {
+       this.selectedHotels.push(ID);
      }
    }
   onFlightSelected(event: any): void {
-    const selectedFlightName = event.target.value;
-    if (selectedFlightName && !this.selectedFlights[selectedFlightName]) {
-      this.selectedFlights[selectedFlightName] = true;
-      this.selectedFlightsText = Object.keys(this.selectedFlights).join(', ');
+    let ID: number = event.target.value;
+    if (ID && !this.selectedFlights.includes(ID)) {
+      this.selectedFlights.push(ID);
     }
   }
   onActivitySelected(event: any): void {
-    const selectedActivityName = event.target.value;
-    if (selectedActivityName && !this.selectedActivities[selectedActivityName]) {
-      this.selectedActivities[selectedActivityName] = true;
-      this.selectedActivitiesText = Object.keys(this.selectedActivities).join(', ');
+    let ID: number = event.target.value;
+    if (ID && !this.selectedActivities.includes(ID)) {
+      this.selectedActivities.push(ID);
     }
   }
-  removeActivity(activityName: string): void {
-    if (this.selectedActivities[activityName]) {
-      delete this.selectedActivities[activityName];
-      this.selectedActivitiesText = Object.keys(this.selectedActivities).join(', ');
-    }
+
+  removeFlight(flightID: number): void {
+    this.selectedFlights = this.selectedFlights.filter(id => id !== flightID);
+
   }
-  removeFlight(flightName: string): void {
-    if (this.selectedFlights[flightName]) {
-      delete this.selectedFlights[flightName];
-      this.selectedFlightsText = Object.keys(this.selectedFlights).join(', ');
-    }
+  removeActivity(activityID: number): void {
+    this.selectedActivities = this.selectedActivities.filter(id => id !== activityID);
   }
-  removeHotel(hotelName: string): void {
-  delete this.selectedHotels[hotelName]; // Remove the hotel from the selection
-  // Update the text representation if needed
+  removeHotel(hotelID: number): void {
+    this.selectedHotels = this.selectedHotels.filter(id => id !== hotelID);
   }
 
   onSubmit() {
@@ -104,89 +96,87 @@ export class AddEditPackagesComponent implements OnInit{
     }
   }
 
-    updatePackage(){
-      const hotelNames = Object.entries(this.selectedHotels)
-                           .filter(([_, isSelected]) => isSelected)
-                           .map(([name, _]) => name);
-      const activityNames = Object.entries(this.selectedActivities)
-                            .filter(([_, isSelected]) => isSelected)
-                            .map(([name, _]) => name);
-      const flightNames = Object.entries(this.selectedFlights)
-                            .filter(([_, isSelected]) => isSelected)
-                            .map(([name, _]) => name);
+    updatePackage() {
+      const formData = new FormData();
+      formData.append('id', this.package.id);
+      formData.append('name', this.package.name);
+      formData.append('description', this.package.description);
+      formData.append('duration_in_days', this.package.duration_in_days);
+      formData.append('hotels', JSON.stringify(this.selectedHotels));
+      formData.append('flights', JSON.stringify(this.selectedFlights));
+      formData.append('activities', JSON.stringify(this.selectedActivities));
 
-      var update = {id:this.id,
-                name:this.name,
-                description:this.description,
-                duration_in_days:this.duration_in_days,
-                hotels:hotelNames,
-                flights:flightNames,
-                activities:activityNames,
-                image:this.image
-        };
-      console.log(update);
-      this.service.updatePackage(update,this.id).subscribe(res=>{
+      if (this.package.image instanceof File) {
+        formData.append('image', this.package.image, this.package.image.name);
+      }
+
+      console.log(formData);
+      this.service.updatePackage(formData,this.id).subscribe(res => {
         alert(res.toString());
       });
     }
+
+    convertFileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = error => reject(error);
+  });
+}
+
     onFileSelected(event: Event): void {
     // @ts-ignore
-      const file:File = Event.files[0];
-        if (file) {
-          this.image = file.name;
-        }
+      if (event > 0) {
+      const imageFile = event.target.files[0];
+      this.convertFileToBase64(imageFile).then(base64Image => {
+        this.image = base64Image;  // Now this.image contains the Base64 string
+    });
 }
 
   ngOnInit(): void {
+      this.fetchAll();
     if (this.package && this.package.id !== 0) {
       this.id = this.package.id;
       this.name = this.package.name;
       this.description = this.package.description;
       this.duration_in_days = this.package.duration_in_days;
       this.image = this.package.image;
-
-      // Convert the received dictionaries for hotels, flights, and activities to arrays for internal component usage
-      this.selectedHotels = this.package.hotels || {};
-      this.selectedFlights = this.package.flights || {};
-      this.selectedActivities = this.package.activities || {};
-
-      // Convert the dictionaries to text representations for display
-      this.selectedHotelsText = this.getSelectedText(this.selectedHotels);
-      this.selectedFlightsText = this.getSelectedText(this.selectedFlights);
-      this.selectedActivitiesText = this.getSelectedText(this.selectedActivities);
+      this.hotels = this.selectedHotels;
+      this.flights = this.selectedFlights;
+      this.activities = this.selectedActivities;
     }
+  }
 
-    // Fetch lists of possible hotels, flights, and activities
+  fetchAll(){
     this.getHotels();
     this.getFlights();
     this.getActivities();
-  }
-
-  getSelectedText(selectedItems: { [key: string]: boolean }): string {
-    return Object.keys(selectedItems)
-      .filter(key => selectedItems[key])
-      .join(', ');
   }
 
   getHotels(){
     this.service.getHotelList().subscribe(data=>{
       let hotels = JSON.stringify(data);
       let hotelList = JSON.parse(hotels);
-      this.hotels = hotelList.results;
+      console.log(hotelList.results);
+      this.hotelsDict = hotelList.results;
     });
   }
   getFlights(){
     this.service.getFlightList().subscribe(data=>{
       let flights = JSON.stringify(data);
       let flightList = JSON.parse(flights);
-      this.flights = flightList.results;
+      console.log(flightList.results);
+      this.flightsDict = flightList.results;
     });
   }
   getActivities(){
     this.service.getActivityList().subscribe(data=>{
       let activities = JSON.stringify(data);
       let activityList = JSON.parse(activities);
-      this.activities = activityList.results;
+      console.log(activityList.results);
+      this.activitiesDict = activityList.results;
     });
   }
 }
+

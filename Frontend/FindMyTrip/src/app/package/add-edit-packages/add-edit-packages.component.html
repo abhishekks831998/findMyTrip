@@ -15,66 +15,84 @@
    <div class="form-group">
       <label for="hotelSelect">Select Hotel(s)</label>
       <select class="form-control" id="hotelSelect" (change)="onHotelSelected($event)">
-        <option *ngFor="let hotel of hotels" [value]="hotel.name">{{ hotel.name }}</option>
+        <option *ngFor="let hotel of hotelsDict" [value]="hotel.id">{{hotel.name }}</option>
       </select>
     </div>
     <div class="form-group mt-3">
           <label>Selected Hotels</label>
           <div id="selectedHotels" class="selected-hotels-list">
-          <div *ngFor="let hotelName of selectedHotels|keyvalue" class="selected-hotel d-flex justify-content-between align-items-center mb-2">
-            <span class="hotel-name">{{ hotelName.key }}</span>
-            <button class="btn btn-outline-danger btn-sm" (click)="removeHotel(hotelName.key)">
-               <i class="bi bi-x-circle-fill"></i>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-              </svg>
-            </button>
-          </div>
+            <div *ngFor="let hotelID of selectedHotels" class="selected-hotel d-flex justify-content-between align-items-center mb-2">
+                <span class="hotel-name">
+                  <ng-container *ngFor="let hotel of hotelsDict">
+                    <ng-container *ngIf="hotel.id == hotelID">
+                      {{ hotel.name }}
+                    </ng-container>
+                  </ng-container>
+                </span>
+               <button class="btn btn-outline-danger btn-sm" (click)="removeHotel(hotelID)">
+                 <i class="bi bi-x-circle-fill"></i>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                  </svg>
+               </button>
+            </div>
           </div>
     </div>
     <div class="form-group">
-      <label for="flightSelect">Select Flight(s)</label>
-      <select class="form-control" id="flightSelect" (change)="onFlightSelected($event)">
-        <option *ngFor="let flight of flights" [value]="flight.flight_number + flight.airline">{{ flight.flight_number + flight.airline}}</option>
+      <label for="hotelSelect">Select Flight(s)</label>
+      <select class="form-control" id="hotelSelect" (change)="onFlightSelected($event)">
+        <option *ngFor="let flight of flightsDict" [value]="flight.id">{{flight.flight_number + " " + flight.airline}}</option>
       </select>
     </div>
     <div class="form-group mt-3">
-          <label>Selected Flights</label>
-          <div id="selectedFlights" class="selected-hotels-list">
-          <div *ngFor="let flightName of selectedFlights | keyvalue" class="selected-hotel d-flex justify-content-between align-items-center mb-2">
-            <span class="hotel-name">{{ flightName.key }}</span>
-            <button class="btn btn-outline-danger btn-sm" (click)="removeFlight(flightName.key)">
-               <i class="bi bi-x-circle-fill"></i>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-              </svg>
-            </button>
-          </div>
+          <label>Selected Hotels</label>
+          <div id="selectedHotels" class="selected-hotels-list">
+            <div *ngFor="let flightID of selectedFlights" class="selected-hotel d-flex justify-content-between align-items-center mb-2">
+                <span class="hotel-name">
+                  <ng-container *ngFor="let flight of flightsDict">
+                    <ng-container *ngIf="flight.id == flightID">
+                      {{ flight.flight_number + " " + flight.airline }}
+                    </ng-container>
+                  </ng-container>
+                </span>
+               <button class="btn btn-outline-danger btn-sm" (click)="removeFlight(flightID)">
+                 <i class="bi bi-x-circle-fill"></i>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                  </svg>
+               </button>
+            </div>
           </div>
     </div>
     <div class="form-group">
-      <label for="activitySelect">Select Activity(s)</label>
-      <select class="form-control" id="activitySelect" (change)="onActivitySelected($event)">
-        <option *ngFor="let activity of activities" [value]="activity.title">{{activity.title }}</option>
+      <label for="hotelSelect">Select Activitiy(s)</label>
+      <select class="form-control" id="hotelSelect" (change)="onActivitySelected($event)">
+        <option *ngFor="let activities of activitiesDict" [value]="activities.id">{{activities.title }}</option>
       </select>
     </div>
     <div class="form-group mt-3">
           <label>Selected Activities</label>
-          <div id="selectedActivities" class="selected-hotels-list">
-          <div *ngFor="let activity of selectedActivities | keyvalue" class="selected-hotel d-flex justify-content-between align-items-center mb-2">
-            <span class="hotel-name">{{ activity.key }}</span>
-            <button class="btn btn-outline-danger btn-sm" (click)="removeActivity(activity.key)">
-               <i class="bi bi-x-circle-fill"></i>
+          <div id="selectedHotels" class="selected-hotels-list">
+            <div *ngFor="let activityID of selectedActivities" class="selected-hotel d-flex justify-content-between align-items-center mb-2">
+                <span class="hotel-name">
+                  <ng-container *ngFor="let activity of activitiesDict">
+                    <ng-container *ngIf="activity.id == activityID">
+                      {{ activity.title }}
+                    </ng-container>
+                  </ng-container>
+                </span>
+               <button class="btn btn-outline-danger btn-sm" (click)="removeActivity(activityID)">
+                 <i class="bi bi-x-circle-fill"></i>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
                   </svg>
-            </button>
-          </div>
+               </button>
+            </div>
           </div>
     </div>
     <div class="form-group">
       <label for="packageImage">Image</label>
-      <input type="file" class="file-upload" id="packageImage" (change)="onFileSelected($event)" name="image">
+      <input type="file" class="file-upload" id="packageImage" (change)="onFileSelected($event.target.)" name="image">
     </div>
      <button (click) ="addPackage()" *ngIf="package.id==0" class="btn btn-primary">
       Add

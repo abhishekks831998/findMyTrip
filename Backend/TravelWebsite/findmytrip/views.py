@@ -14,7 +14,10 @@ from rest_framework import filters, viewsets, generics, status
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth import logout
 from django.contrib.auth.models import User as BaseUser
-
+import base64
+from django.core.files.base import ContentFile
+from rest_framework.views import APIView
+from rest_framework.parsers import MultiPartParser, FormParser
 
 def custom_logout(request):
     logout(request)
@@ -53,6 +56,7 @@ class PackageViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["name", "duration_in_days"]
     search_fields = ["name", "duration_in_days"]
+
 
 @csrf_exempt
 def package_upload(request):
