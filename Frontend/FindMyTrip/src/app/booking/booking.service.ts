@@ -27,4 +27,11 @@ export class BookingService {
   getBookingDetails(bookingId: String): Observable<any> {
     return this.http.get<any>(this.baseURL+bookingId, { headers: this.headers });
   }
+
+  getAllBookings(): Observable<any> {
+    return this.http.get<any>(this.baseURL, { headers: this.headers });
+  } 
+  deleteBooking(val:any){
+    return this.http.delete(this.baseURL +val, { headers: this.headers });
+  }
 }
