@@ -13,6 +13,7 @@ export class BookingComponent {
   @Input() userId: string = '';
   @Input() packageId: string = '';
   @Input() bookingId: string = '';
+  BookingList:any=[];
   people: any[] = [];
   formData: any = {};
   constructor(private http: HttpClient, private dialog: MatDialog, private bookingService: BookingService) { 
@@ -32,6 +33,7 @@ export class BookingComponent {
         }
       );
     }
+    this.refreshBookingList();
   }
   openDialog() {
     const dialogRef = this.dialog.open(AddPersonDialogComponent);
@@ -62,10 +64,29 @@ submitForm() {
           alert('Booking submitted successfully:');
           // Reset form after successful submission
           this.formData = {};
+          this.refreshBookingList();
+          this.formData = {};
         },
         error => {
           console.error('Error submitting booking:', error);
         }
       );
+  }
+
+  refreshBookingList(){
+    this.bookingService.getAllBookings().subscribe(data=>{
+       let bookings = JSON.stringify(data);
+        let bookingList = JSON.parse(bookings);
+          this.BookingList = bookingList.results;
+    });
+  }
+
+  deleteClick(item: any){
+    
+    if(confirm('Are you sure??')){
+      this.bookingService.deleteBooking(item.url.split("/")[4]).subscribe(data=>{
+        this.refreshBookingList();
+      });
+    }
   }
 }
