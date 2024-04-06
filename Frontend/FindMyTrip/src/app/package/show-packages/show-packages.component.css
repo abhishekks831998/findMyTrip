@@ -62,17 +62,9 @@
 .grid-item p {
   margin-top: 10px;
 }
-.packages-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px; /* Adjust the padding as needed */
-  background-color: coral; /* Adjust the background color as needed */
-  border-bottom: 1px solid #e0e0e0; /* Optional border for visual separation */
-}
 
 .package-name {
-  font-size: 12px; /* Adjust the font size as needed */
+  font-size: 15px; /* Adjust the font size as needed */
   color: white; /* Adjust the font color as needed */
 }
 

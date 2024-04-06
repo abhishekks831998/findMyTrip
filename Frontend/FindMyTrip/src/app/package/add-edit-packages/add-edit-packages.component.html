@@ -92,7 +92,7 @@
     </div>
     <div class="form-group">
       <label for="packageImage">Image</label>
-      <input type="file" class="file-upload" id="packageImage" (change)="onFileSelected($event.target.)" name="image">
+      <input type="file" class="file-upload" id="packageImage" (change)="onFileSelected($event)" name="image">
     </div>
      <button (click) ="addPackage()" *ngIf="package.id==0" class="btn btn-primary">
       Add

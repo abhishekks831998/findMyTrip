@@ -23,16 +23,15 @@ export class PackageService {
   getPackageList():Observable<any[]>{
     return this.http.get<any>(this.APIUrl + '/packages/',{ headers: this.headers });
   }
-  addPackage(val:any, image: any){
+  addPackage(val:any){
     const formData = new FormData();
-    for (const key in val) {
-    if (val.hasOwnProperty(key)) {
-      formData.append(key, val[key]);
-    }
-  }
-    if (image) {
-    formData.append('image', image, image.name);
-  }
+    formData.append('name', val.name);
+    formData.append('description', val.description);
+    formData.append('duration_in_days', val.duration_in_days);
+    formData.append('hotels', val.hotels);
+    formData.append('flights', val.flights);
+    formData.append('activities', val.activities);
+    formData.append('image', val.image);
     console.log(formData);
     return this.http.post(this.APIUrl + '/packages/',formData,{ headers: this.headers });
   }

@@ -34,6 +34,8 @@ class Activity(models.Model):
     class Meta:
         ordering = ['title']
 
+def upload_path(instance, filename):
+    return '/'.join(['media', str(instance.title), filename])
 
 # Package model
 class Package(models.Model):
@@ -43,7 +45,7 @@ class Package(models.Model):
     hotels = models.ManyToManyField(Hotel)
     activities = models.ManyToManyField(Activity)
     flights = models.ManyToManyField(Flight)
-    image = models.ImageField(blank=True, default='media/default_image.jpg')
+    image = models.ImageField(blank=True, default='media/default_image.jpg',upload_to='media')
 
     def __str__(self):
         return self.name

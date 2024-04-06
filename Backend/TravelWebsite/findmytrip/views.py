@@ -1,3 +1,5 @@
+import unicodedata
+
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
@@ -11,7 +13,7 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, viewsets, generics, status
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import logout
 from django.contrib.auth.models import User as BaseUser
 import base64
@@ -56,6 +58,25 @@ class PackageViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["name", "duration_in_days"]
     search_fields = ["name", "duration_in_days"]
+
+    def make_data(self,request, *args, **kwargs):
+        name = request.data.get('name')
+        description = request.data.get('description')
+        duration_in_days = request.data.get('duration_in_days')
+        hotels = request.data.get('hotels')
+        activities = request.data.get('activities')
+        flights = request.data.get('flights')
+        image = request.data.get('image')
+        Package.objects.create(name=name, description=description, duration_in_days=duration_in_days, hotels=hotels,
+                               activities=activities, flights=flights, image=image)
+
+    def post(self, request, *args, **kwargs):
+        self.make_data(request, *args, **kwargs)
+        return HttpResponse({'message': 'Package created successfully'}, status=200)
+
+    def put(self, request, *args, **kwargs):
+        self.make_data(request, *args, **kwargs)
+        return HttpResponse({'message': 'Package Updated successfully'})
 
 
 @csrf_exempt

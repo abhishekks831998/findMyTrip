@@ -22,25 +22,26 @@ interface Activity {
   styleUrl: './add-edit-packages.component.css'
 })
 
-export class AddEditPackagesComponent implements OnInit{
+export class AddEditPackagesComponent implements OnInit {
 
   @Input() package: any;
   id: number | undefined;
   name: string | undefined;
   description: string | undefined;
   duration_in_days: number | undefined;
-  hotels : number[] | [] | undefined;
-  flights : number[] | [] | undefined;
-  activities : number[] | undefined;
-  image: string | undefined;
-  selectedHotels : number[] = [];
-  selectedFlights : number[] = [];
-  selectedActivities : number[] = [];
+  hotels: number[] | [] | undefined;
+  flights: number[] | [] | undefined;
+  activities: number[] | undefined;
+  image: File | undefined;
+  selectedHotels: number[] = [];
+  selectedFlights: number[] = [];
+  selectedActivities: number[] = [];
   hotelsDict: any | {} | undefined;
   flightsDict: any | {} | undefined;
   activitiesDict: any | {} | undefined;
 
-  constructor(private service: PackageService) { }
+  constructor(private service: PackageService) {
+  }
 
   addPackage() {
     var add = {
@@ -51,25 +52,28 @@ export class AddEditPackagesComponent implements OnInit{
       hotels: this.selectedHotels,
       flights: this.selectedFlights,
       activities: this.selectedActivities,
-      image:this.image
+      image: this.image
     };
     console.log(add);
-    // this.service.addPackage(add,this.image).subscribe(res => {
-    //   alert(res.toString());
-    // });
+    this.service.addPackage(add).subscribe(res => {
+      alert(res.toString());
+    });
   }
-   onHotelSelected(event: any): void {
-     let ID: number = event.target.value;
-     if (ID && !this.selectedHotels.includes(ID)) {
-       this.selectedHotels.push(ID);
-     }
-   }
+
+  onHotelSelected(event: any): void {
+    let ID: number = event.target.value;
+    if (ID && !this.selectedHotels.includes(ID)) {
+      this.selectedHotels.push(ID);
+    }
+  }
+
   onFlightSelected(event: any): void {
     let ID: number = event.target.value;
     if (ID && !this.selectedFlights.includes(ID)) {
       this.selectedFlights.push(ID);
     }
   }
+
   onActivitySelected(event: any): void {
     let ID: number = event.target.value;
     if (ID && !this.selectedActivities.includes(ID)) {
@@ -81,9 +85,11 @@ export class AddEditPackagesComponent implements OnInit{
     this.selectedFlights = this.selectedFlights.filter(id => id !== flightID);
 
   }
+
   removeActivity(activityID: number): void {
     this.selectedActivities = this.selectedActivities.filter(id => id !== activityID);
   }
+
   removeHotel(hotelID: number): void {
     this.selectedHotels = this.selectedHotels.filter(id => id !== hotelID);
   }
@@ -96,43 +102,32 @@ export class AddEditPackagesComponent implements OnInit{
     }
   }
 
-    updatePackage() {
-      const formData = new FormData();
-      formData.append('id', this.package.id);
-      formData.append('name', this.package.name);
-      formData.append('description', this.package.description);
-      formData.append('duration_in_days', this.package.duration_in_days);
-      formData.append('hotels', JSON.stringify(this.selectedHotels));
-      formData.append('flights', JSON.stringify(this.selectedFlights));
-      formData.append('activities', JSON.stringify(this.selectedActivities));
+  updatePackage() {
+    const formData = new FormData();
+    formData.append('id', this.package.id);
+    formData.append('name', this.package.name);
+    formData.append('description', this.package.description);
+    formData.append('duration_in_days', this.package.duration_in_days);
+    formData.append('hotels', JSON.stringify(this.selectedHotels));
+    formData.append('flights', JSON.stringify(this.selectedFlights));
+    formData.append('activities', JSON.stringify(this.selectedActivities));
 
-      if (this.package.image instanceof File) {
-        formData.append('image', this.package.image, this.package.image.name);
-      }
-
-      console.log(formData);
-      this.service.updatePackage(formData,this.id).subscribe(res => {
-        alert(res.toString());
-      });
+    if (this.package.image instanceof File) {
+      formData.append('image', this.package.image, this.package.image.name);
     }
 
-    convertFileToBase64(file: File): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = error => reject(error);
-  });
-}
-
-    onFileSelected(event: Event): void {
-    // @ts-ignore
-      if (event > 0) {
-      const imageFile = event.target.files[0];
-      this.convertFileToBase64(imageFile).then(base64Image => {
-        this.image = base64Image;  // Now this.image contains the Base64 string
+    console.log(formData);
+    this.service.updatePackage(formData, this.id).subscribe(res => {
+      alert(res.toString());
     });
-}
+  }
+
+  onFileSelected(event:Event): void {
+    const target = event.target as HTMLInputElement;
+    const file: File = (target.files as FileList)[0];
+    this.image = file;
+    }
+
 
   ngOnInit(): void {
       this.fetchAll();
