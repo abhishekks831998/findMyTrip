@@ -31,7 +31,6 @@ export class ShowFlightComponent implements OnInit {
     this.ModelTitle = "Add Flight";
     this.ActivateAddEditFlightComponent = true;
   }
-
   editClick(item: any) {
     this.flight = item;
     this.ModelTitle = "Edit Flight";

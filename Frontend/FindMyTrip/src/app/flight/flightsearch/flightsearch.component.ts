@@ -7,7 +7,8 @@ import {SharedService} from "../../shared.service";
   styleUrl: './flightsearch.component.css'
 })
 export class FlightsearchComponent {
-  @Output() changeflightList = new EventEmitter<number>();
+
+@Output() changeflightList = new EventEmitter<number>();
   query: string = '';
   searchResults: any[] = [];
   constructor(private flightSearchService: SharedService) {}
