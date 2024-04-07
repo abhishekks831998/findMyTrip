@@ -21,6 +21,7 @@ from django.core.files.base import ContentFile
 from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
 
+
 def custom_logout(request):
     logout(request)
     # Redirect to homepage or login page after logout
@@ -86,6 +87,7 @@ def package_upload(request):
         image = request.FILES.get('image')
         # Process the rest of the form data and save your model instance
         return JsonResponse({'message': 'Package created/updated successfully'})
+
 
 class BookingViewSet(viewsets.ModelViewSet):
     serializer_class = BookingSerializer

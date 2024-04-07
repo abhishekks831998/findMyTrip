@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Hotel, Flight, Activity, Package, Booking
 from django.contrib.auth.models import User as BaseUser
 
+
 class HotelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hotel

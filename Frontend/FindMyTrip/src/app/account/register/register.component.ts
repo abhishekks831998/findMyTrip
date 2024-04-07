@@ -8,18 +8,18 @@ import {AccountService} from "../account.service";
 })
 export class RegisterComponent implements OnInit {
   @Input() register: any;
-  id: number | undefined;
-  first_name: string | undefined;
-  last_name: string | undefined;
-  is_staff: boolean | undefined;
-  username: string | undefined;
-  email: string | undefined;
-  password: string | undefined;
+  id : number  = 0;
+  first_name: string  = '';
+  last_name: string  = '';
+  is_staff: boolean = false
+  username: string = '';
+  email: string = '';
+  password: string = '';
 
   constructor(private service: AccountService) {
   }
 
-  registeruser() {
+  registerUser() {
     var val = {
       id: this.id,
       first_name: this.first_name,
