@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'FindMyTrip';
+
+  showPopup = false;
+
+  togglePopup(): void {
+    this.showPopup = !this.showPopup;
+  }
 }

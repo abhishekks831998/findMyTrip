@@ -40,7 +40,7 @@ body {
 
 .navbar-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin: 0 10px;
   color: white;
   text-decoration: none;

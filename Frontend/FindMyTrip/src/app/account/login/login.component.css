@@ -1,0 +1,146 @@
+.container {
+  display: flex;
+  height: 100vh;
+  background: url('https://source.unsplash.com/1920x1080/?nature,landscape') no-repeat center center fixed;
+  background-size: cover;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Arial', sans-serif;
+}
+
+.left-panel, .right-panel {
+  padding: 40px;
+  flex-basis: 45%; /* Slightly reduced to prevent overlap on smaller screens */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.left-panel {
+  margin-right: 10px; /* Adjusted overlap */
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+}
+
+.right-panel {
+  margin-left: 10px; /* Adjusted overlap */
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 0.5em;
+}
+
+p {
+  font-size: 1.2em;
+  margin-bottom: 1em;
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+  outline: none;
+}
+
+.sign-in-button, .register-button {
+  background-color: #556B2F; /* Olive Green */
+  color: white;
+}
+
+.forgot-password-button {
+  background: none;
+  color: #556B2F;
+  padding: 10px;
+  font-size: 14px;
+  text-decoration: underline;
+  border: none;
+  cursor: pointer;
+}
+
+.sign-in-button:hover, .register-button:hover {
+  background-color: #6B8E23; /* Dark Olive Green */
+}
+
+.forgot-password-button:hover {
+  color: #6B8E23;
+}
+
+.input-field {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 1em;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.radio-buttons {
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  font-size: 1em;
+}
+
+.radio-input {
+  margin-right: 10px;
+}
+
+.create-account {
+  text-align: center;
+}
+
+/* Extra styles for placeholders for social media icons */
+.social-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.social-icon {
+  padding: 10px;
+  margin: 0 5px;
+  border-radius: 50%;
+  background: #ddd;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.social-icon:hover {
+  background: #ccc;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1080px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .left-panel, .right-panel {
+    flex-basis: auto; /* Allow panels to adjust naturally to content size */
+    width: 80%; /* Improved spacing on smaller devices */
+    margin: 20px 0; /* Increased spacing for better separation on mobile */
+  }
+}
+

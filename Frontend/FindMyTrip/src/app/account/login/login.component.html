@@ -1,1 +1,31 @@
-<p>login works!</p>
+<div class="container">
+  <div class="left-panel">
+    <h1>Find My Trip</h1>
+    <p>Get Lost: It's Where the Best Stories Begin.</p>
+
+  </div>
+
+  <div class="right-panel">
+    <h2>Welcome Aboard</h2>
+
+    <!-- Placeholder for Social Media Icons -->
+
+    <form (submit)="onSubmit()" class="login-form">
+      <input type="email" [(ngModel)]="loginObj.user_name" name="email" placeholder="Email" required class="input-field">
+      <input type="password" [(ngModel)]="loginObj.password" name="password" placeholder="Password" required class="input-field">
+
+      <div class="radio-buttons">
+        <label class="radio-label">
+          <input type="radio" [(ngModel)]="loginObj.type" value="user" name="loginType" class="radio-input"> User
+        </label>
+        <label class="radio-label">
+          <input type="radio" [(ngModel)]="loginObj.type" value="agent" name="loginType" class="radio-input"> Agent
+        </label>
+      </div>
+
+      <button type="submit" class="sign-in-button">Sign In</button>
+      <button class="new-user-button" (click)="goToRegister()">New User (Register)</button>
+        <button class="forgot-password-button" (click)="onForgotPassword()">Forgot Password?</button>
+    </form>
+  </div>
+</div>

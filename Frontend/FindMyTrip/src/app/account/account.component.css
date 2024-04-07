@@ -1,0 +1,59 @@
+.popup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Dimmed background overlay */
+  background-image: url('/assets/travel.jpg'); /* Set the background image here */
+  background-size: cover;
+  background-position: center;
+}
+
+.popup-content {
+  position: relative;
+  /* You might want to have a solid color for readability */
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  /* If you want a semi-transparent background with the image slightly showing through, you can use: */
+  /* Adjust opacity as needed */
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.account-btn {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.account-btn:hover {
+  background-color: #0056b3;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #f00;
+}
+
+

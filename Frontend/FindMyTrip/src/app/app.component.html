@@ -18,6 +18,10 @@
     <a href="/activities" class="navbar-item">
       <i class="fas fa-coffee"></i> Activity
     </a>
+    <a href="/account" class="navbar-item" (click)="togglePopup()">
+      <i class="fas fa-user"></i> Account
+    </a>
+    <app-account *ngIf="showPopup" (closePopup)="togglePopup()"></app-account>
   </div>
 </nav>
 <div>

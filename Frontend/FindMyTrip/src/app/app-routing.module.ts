@@ -6,6 +6,10 @@ import { HotelComponent } from './hotel/hotel.component';
 import { HomeComponent} from './home/home.component';
 import { FlightComponent} from './flight/flight.component';
 import { ActivityComponent} from './activity/activity.component';
+import { AccountComponent} from "./account/account.component";
+import {LoginComponent} from "./account/login/login.component";
+import {RegisterComponent} from "./account/register/register.component";
+
 
 const routes: Routes = [
   //{ path: '', component: HomeComponent },
@@ -14,7 +18,10 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'hotels', component: HotelComponent },
   { path: 'flights', component: FlightComponent },
-  { path: 'activities', component: ActivityComponent }
+  { path: 'activities', component: ActivityComponent },
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'account', component: AccountComponent}
   // add more routes as needed
 ];
 
