@@ -28,6 +28,7 @@ import { AddEditActivityComponent } from './activity/add-edit-activity/add-edit-
 import { AccountComponent } from './account/account.component';
 import { LoginComponent } from './account/login/login.component';
 import { RegisterComponent } from './account/register/register.component';
+import { FlightsearchComponent } from './flight/flightsearch/flightsearch.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { RegisterComponent } from './account/register/register.component';
     AddEditActivityComponent,
     AccountComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    FlightsearchComponent
   ],
   imports: [
     BookingModule,
