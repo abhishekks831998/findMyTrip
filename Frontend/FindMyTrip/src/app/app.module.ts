@@ -25,6 +25,9 @@ import {ShowFlightComponent} from "./flight/show-flight/show-flight.component";
 import { ActivityComponent } from './activity/activity.component';
 import { ShowActivityComponent } from './activity/show-activity/show-activity.component';
 import { AddEditActivityComponent } from './activity/add-edit-activity/add-edit-activity.component';
+import { AccountComponent } from './account/account.component';
+import { LoginComponent } from './account/login/login.component';
+import { RegisterComponent } from './account/register/register.component';
 
 
 @NgModule({
@@ -42,7 +45,10 @@ import { AddEditActivityComponent } from './activity/add-edit-activity/add-edit-
     ShowHotelComponent,
     ActivityComponent,
     ShowActivityComponent,
-    AddEditActivityComponent
+    AddEditActivityComponent,
+    AccountComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BookingModule,
