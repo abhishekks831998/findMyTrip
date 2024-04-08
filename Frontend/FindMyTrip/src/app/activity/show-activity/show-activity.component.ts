@@ -9,6 +9,7 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class ShowActivityComponent implements OnInit{
 ModalTitle: any;
+query: string = '';
 
   constructor(private service:SharedService, private cdRef: ChangeDetectorRef) { }
 
@@ -18,7 +19,7 @@ ModalTitle: any;
   activity:any;
 
   ngOnInit() : void {
-    this.refreshActivityList()
+    this.refreshActivityList(null);
   }
 
   addClick(){
@@ -38,26 +39,43 @@ ModalTitle: any;
 
   closeClick(){
     this.ActivateAddEditActivityComponent = false;
-    this.refreshActivityList();
+    this.refreshActivityList(null);
   }
 
   deleteClick(item: any){
     if(confirm('Are you sure??')){
       this.service.deleteActivity(item.id).subscribe(data=>{
         alert(data.toString());
-        this.refreshActivityList();
+        this.refreshActivityList(null);
         this.cdRef.detectChanges()
       });
     }
   }
 
-  refreshActivityList(){
+  refreshActivityList(searchResult: any){
+    if(searchResult) {
+      this.ActivityList = searchResult;
+    }
+
+    else{
     this.service.getActivityList().subscribe(data=>{
        let activities = JSON.stringify(data);
         let activityList = JSON.parse(activities);
           this.ActivityList = activityList.results;
+
+      if (this.query) {
+        // Filter the FlightList based on the search query
+        this.ActivityList = this.ActivityList.filter((activity: any) =>
+          activity.title.toLowerCase().includes(this.query.toLowerCase()) ||
+          activity.description.toLowerCase().includes(this.query.toLowerCase())
+        );
+      }
     });
+
+    }
+
+
+
+
   }
 }
-
-

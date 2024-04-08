@@ -22,7 +22,10 @@ readonly APIUrl = "http://127.0.0.1:8000";
     return this.http.get<any>(this.APIUrl + `/hotels/?search=${query}`);
   }
   //http://127.0.0.1:8000/flights/?flight_number=3&airline=
-
+  searchactivities(query: any): Observable<any> {
+    // Implement HTTP request to backend API to search flights
+    return this.http.get<any>(this.APIUrl + `/activities/?search=${query}`);
+  }
   getHotelList():Observable<any[]>{
     return this.http.get<any>(this.APIUrl + '/hotels/');
   }
