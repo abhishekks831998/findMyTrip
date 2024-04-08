@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
   constructor(private service: AccountService) {
   }
 
-  registerUser() {
+  getUserList() {
     var val = {
       id: this.id,
       first_name: this.first_name,
@@ -29,11 +29,39 @@ export class RegisterComponent implements OnInit {
       email: this.email,
       password: this.password
     };
-    // this.service.addUser(val).subscribe(res => {
-    //   alert(res.toString());
-    // });
-    console.log(val);
+    this.service.getUserList(val).subscribe(res => {
+      alert(res.toString());
+    });
+  }
 
+  addUser() {
+    var val = {
+      id: this.id,
+      first_name: this.first_name,
+      last_name: this.last_name,
+      is_staff: this.is_staff,
+      username: this.username,
+      email: this.email,
+      password: this.password
+    };
+    this.service.addUser(val).subscribe(res => {
+      alert(res.toString());
+    });
+  }
+
+  updateUser() {
+    var val = {
+      id: this.id,
+      first_name: this.first_name,
+      last_name: this.last_name,
+      is_staff: this.is_staff,
+      username: this.username,
+      email: this.email,
+      password: this.password
+    };
+    this.service.updateUser(val,this.id).subscribe(res => {
+      alert(res.toString());
+    });
   }
     ngOnInit(): void {
         this.id = this.register.id;

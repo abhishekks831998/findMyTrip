@@ -11,7 +11,7 @@ export class AccountService {
 
   constructor(private http:HttpClient) { }
 
-  getUserList():Observable<any[]>{
+  getUserList(val:any):Observable<any[]>{
     return this.http.get<any>(this.APIUrl + '/register/');
   }
   addUser(val:any){

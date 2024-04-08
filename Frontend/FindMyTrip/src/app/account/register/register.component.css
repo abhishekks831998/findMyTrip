@@ -6,6 +6,9 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Soft shadow for depth */
   margin-top: 20px;
 }
+.registration-form{
+  width: 50%;
+}
 
 /* Label Styling */
 .col-form-label {
@@ -27,10 +30,10 @@
 }
 
 .form-check-input {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   cursor: pointer; /* Make cursor pointer for better UX */
-  margin-left: 2.5rem; /* Add space between checkbox and label */
+  margin-left: -1rem; /* Add space between checkbox and label */
 }
 
 /* Button Styling */
@@ -88,3 +91,31 @@
   }
 }
 
+{
+<
+style
+>
+.
+form-check-label
+{
+  display: inline-block
+;
+  margin-right: 10px
+;
+}
+
+.form-check-input {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.form-check {
+  display: inline-block;
+}
+
+<
+/
+style
+>
+
+}
