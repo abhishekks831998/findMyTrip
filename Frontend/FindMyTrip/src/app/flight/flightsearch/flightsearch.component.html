@@ -1,6 +1,6 @@
 <!-- flight-search.component.html -->
 
 <form (ngSubmit)="search()">
-  <input type="text" [(ngModel)]="query" name="query" placeholder="Enter search query">
-  <button type="submit">Search</button>
+  <input type="text" [(ngModel)]="query" name="query" placeholder="Enter search query" (input)="onQueryChange()" >
+  <button type="submit" >Search</button>
 </form>
