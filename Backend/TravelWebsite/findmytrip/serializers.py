@@ -6,19 +6,19 @@ from django.contrib.auth.models import User as BaseUser
 class HotelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hotel
-        fields = ['id', 'name', 'address']
+        fields = ['id', 'name', 'address','hotel_price']
 
 
 class FlightSerializer(serializers.ModelSerializer):
     class Meta:
         model = Flight
-        fields = ['id', 'flight_number', 'airline']
+        fields = ['id', 'flight_number', 'airline', 'flight_price']
 
 
 class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        fields = ['id', 'title', 'description']
+        fields = ['id', 'title', 'description', 'activity_price']
 
 
 class PackageSerializer(serializers.ModelSerializer):
