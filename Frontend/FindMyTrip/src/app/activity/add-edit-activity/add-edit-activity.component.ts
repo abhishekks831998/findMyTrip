@@ -12,13 +12,15 @@ export class AddEditActivityComponent implements OnInit {
   id: number | undefined;
   title: string | undefined;
   description: string | undefined;
+  activity_price: number | undefined;
 
   constructor(private service: SharedService) { }
 
   addActivity(){
     var val = {id:this.id,
               title:this.title,
-              description:this.description};
+              description:this.description,
+              activity_price:this.activity_price};
     this.service.addActivity(val).subscribe(res=>{
       alert(res.toString());
     });
@@ -26,8 +28,9 @@ export class AddEditActivityComponent implements OnInit {
   }
   updateActivity(){
     var val = {id:this.id,
-               title:this.title,
-               description:this.description};
+              title:this.title,
+              description:this.description,
+              activity_price:this.activity_price};
     this.service.updateActivity(val,this.id).subscribe(res=>{
       alert(res.toString());
     });
@@ -38,6 +41,7 @@ export class AddEditActivityComponent implements OnInit {
     this.id = this.activity.id;
     this.title = this.activity.title;
     this.description = this.activity.description;
+    this.activity_price = this.activity.activity_price;
   }
 
 }

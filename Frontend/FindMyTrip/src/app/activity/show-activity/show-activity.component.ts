@@ -27,6 +27,7 @@ query: string = '';
       id:0,
       title:"",
       description:"",
+      activity_price: undefined,
     }
     this.ModelTitle = "Add Activity";
     this.ActivateAddEditActivityComponent = true;

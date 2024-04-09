@@ -7,6 +7,10 @@
    <div class="col-sm-10">
     <input type="text" class="form-control" [(ngModel)]="address" placeholder="Enter Hotel address">
   </div>
+  <label class = "col-sm-2 col-form-label"> Hotel Price</label>
+  <div class="col-sm-10">
+    <input type="text" class="form-control" [(ngModel)]="hotel_price" placeholder="Enter Hotel price per head">
+  </div>
 </div>
 <button (click) ="addHotel()" *ngIf="hotel.id==0" class="btn btn-primary">
   Add

@@ -27,6 +27,7 @@ export class ShowFlightComponent implements OnInit {
       id: 0,
       flight_number: "",
       airline: "",
+      flight_price: undefined,
     }
     this.ModelTitle = "Add Flight";
     this.ActivateAddEditFlightComponent = true;

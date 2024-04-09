@@ -12,13 +12,15 @@ export class AddEditFlightComponent implements OnInit {
   id: number | undefined;
   flight_number: string | undefined;
   airline: string | undefined;
+  flight_price: | undefined;
 
   constructor(private service: SharedService) { }
 
   addFlight(){
     var val = {id:this.id,
               flight_number:this.flight_number,
-              airline:this.airline};
+              airline:this.airline,
+              flight_price:this.flight_price};
     this.service.addFlight(val).subscribe(res=>{
       alert(res.toString());
     });
@@ -26,8 +28,9 @@ export class AddEditFlightComponent implements OnInit {
   }
   updateFlight(){
     var val = {id:this.id,
-               flight_number:this.flight_number,
-               airline:this.airline};
+              flight_number:this.flight_number,
+              airline:this.airline,
+              flight_price:this.flight_price};
     this.service.updateFlight(val,this.id).subscribe(res=>{
       alert(res.toString());
     });
@@ -38,6 +41,7 @@ export class AddEditFlightComponent implements OnInit {
     this.id = this.flight.id;
     this.flight_number = this.flight.flight_number;
     this.airline = this.flight.airline;
+    this.flight_price = this.flight.flight_price;
   }
 
 }

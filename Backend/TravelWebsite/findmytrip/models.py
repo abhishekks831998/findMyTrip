@@ -8,7 +8,7 @@ from django.contrib.auth.models import User as BaseUser
 class Hotel(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=255)
-    hotel_price = models.PositiveIntegerField(default=1)
+    hotel_price = models.PositiveIntegerField(default=100)
     def __str__(self):
         return self.name
     class Meta:
@@ -18,7 +18,7 @@ class Hotel(models.Model):
 class Flight(models.Model):
     flight_number = models.CharField(max_length=100)
     airline = models.CharField(max_length=100)
-    flight_price = models.PositiveIntegerField(default=1)
+    flight_price = models.PositiveIntegerField(default=100)
     def __str__(self):
         return self.airline + ' ' + self.flight_number
     class Meta:
@@ -28,7 +28,7 @@ class Flight(models.Model):
 class Activity(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    activity_price = models.PositiveIntegerField(default=1)
+    activity_price = models.PositiveIntegerField(default=100)
     def __str__(self):
         return self.title
     class Meta:

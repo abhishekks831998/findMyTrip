@@ -27,6 +27,7 @@ export class ShowHotelComponent implements OnInit{
       id: 0,
       name: "",
       address: "",
+      hotel_price: undefined,
     }
     this.ModelTitle = "Add Hotel";
     this.ActivateAddEditHotelComponent = true;

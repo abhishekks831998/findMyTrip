@@ -12,13 +12,15 @@ export class AddEditHotelComponent implements OnInit {
   id: number | undefined;
   name: string | undefined;
   address: string | undefined;
+  hotel_price: number | undefined;
 
   constructor(private service: SharedService) { }
 
   addHotel(){
     var val = {id:this.id,
               name:this.name,
-              address:this.address};
+              address:this.address,
+              hotel_price:this.hotel_price};
     this.service.addHotel(val).subscribe(res=>{
       alert(res.toString());
     });
@@ -27,7 +29,8 @@ export class AddEditHotelComponent implements OnInit {
   updateHotel(){
     var val = {id:this.id,
               name:this.name,
-              address:this.address};
+              address:this.address,
+              hotel_price:this.hotel_price};
     this.service.updateHotel(val,this.id).subscribe(res=>{
       alert(res.toString());
     });
@@ -38,6 +41,7 @@ export class AddEditHotelComponent implements OnInit {
     this.id = this.hotel.id;
     this.name = this.hotel.name;
     this.address = this.hotel.address;
+    this.hotel_price = this.hotel.hotel_price;
   }
 
 }
