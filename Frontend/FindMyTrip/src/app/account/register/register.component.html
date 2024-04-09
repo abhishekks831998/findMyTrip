@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="form-group container registration-form">
   <div class="row mb-3">
     <label class="col-sm-2 col-form-label">First Name</label>
     <div class="col-sm-10">
@@ -13,11 +13,13 @@
   </div>
   <div class="row mb-3">
     <div class="col-sm-12">
-      <label class="form-check-label">Are you an Agent?:</label>
-      <input class="form-check-input" type="checkbox" id="agentCheckbox" [(ngModel)]="is_staff">
-      <label class="form-check-label" for="agentCheckbox">Yes</label>
+      <label class="form-check-label">Are you an Agent?</label><br>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="agentCheckbox" [(ngModel)]="is_staff">
+        <label class="form-check-label" for="agentCheckbox">Yes</label>
+      </div>
     </div>
-</div>
+  </div>
   <div class="row mb-3">
     <label class="col-sm-2 col-form-label">Username</label>
     <div class="col-sm-10">
@@ -36,7 +38,17 @@
       <input type="password" class="form-control" [(ngModel)]="password" placeholder="Set a password">
     </div>
   </div>
+  <button (click)="addUser()" class="btn btn-primary">
+    Register
+  </button>
+  <!-- Add space here -->
+  &nbsp;&nbsp;&nbsp;
+  <button (click)="updateUser()" class="btn btn-primary">
+    Update
+  </button>
+  <!-- Add space here -->
+  &nbsp;&nbsp;&nbsp;
+  <button (click)="getUserList()" class="btn btn-primary">
+    User List
+  </button>
 </div>
-<button (click)="registerUser()" class="btn btn-primary">
-  Register
-</button>
