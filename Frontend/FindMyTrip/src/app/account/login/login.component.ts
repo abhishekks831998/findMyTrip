@@ -1,61 +1,66 @@
-import { Component,Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from '../account.service';
-import {delay} from 'rxjs/operators';
+import { catchError } from "rxjs/operators";
+import { HttpErrorResponse } from "@angular/common/http";
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-
 export class LoginComponent {
-  @Input() login: any;
   user_name: string = '';
   password: string = '';
-  isButtonDisabled = false; // Added flag to disable the button
-  button_name = "Log In"// Add a button name
-  flag = false;
+  isButtonDisabled = false;
+  button_name = "Log In";
+  isLoggedIn = false; // Renamed for clarity
+  showErrorModal: boolean = false; // For controlling error modal visibility
 
-
-  constructor(private router: Router, private service: AccountService) {} // Inject the router in the constructor
+  constructor(private router: Router, private service: AccountService) {}
 
   onSubmit() {
-    if (this.flag) {
-      this.button_name = "Log In"
-      this.user_name = '';
-      this.password = '';
-      this.flag = false;
-      console.log('Log Out');
-      this.service.logout().subscribe(res => {
-        if (res) {
-          localStorage.removeItem('token');
-          this.router.navigate(['/home']);
-          console.log(res);
-        }
-      });
+    if (this.isLoggedIn) {
+      this.logOut();
     } else {
-      let auth = {
-        username: this.user_name,
-        password: this.password
+      this.logIn();
+    }
+  }
+
+  logIn() {
+    const auth = {
+      username: this.user_name,
+      password: this.password
+    };
+    this.service.login(auth).pipe(
+      catchError((error: HttpErrorResponse) => {
+        this.showErrorModal = true; // Consider implementing a modal or toast notification instead of alert
+        return of(null); // Handle the error and prevent further processing
+      })
+    ).subscribe(res => {
+      if (res && res.token) {
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('isStaff', res.user.is_staff);
+        this.isLoggedIn = true;
+        this.router.navigate(['/account']);
       }
-      this.service.login(auth).subscribe(res => {
-        if (res) {
-          if (res.token) {
-            localStorage.setItem('token', res.token);
-            this.isButtonDisabled = false; // Disable the button after successful login
-            this.button_name = "Logg Out" // Change the button text after successful login
-            this.flag = true;
-          }
-        }
-      });
-      }
+    });
+  }
+
+  logOut() {
+    this.service.logout().subscribe(res => {
+      localStorage.removeItem('token');
+      this.isLoggedIn = false;
+      this.router.navigate(['/home']);
+    });
+  }
+
+  closeModal() {
+    this.showErrorModal = false;
   }
 
   goToRegister() {
-    this.router.navigate(['/register']); // This should navigate to your register component
-  }
-  onForgotPassword() {
-    console.log('Forgot password clicked');
+    this.router.navigate(['/register']);
   }
 }

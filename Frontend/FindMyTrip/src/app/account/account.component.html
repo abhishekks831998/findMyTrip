@@ -2,7 +2,7 @@
   <div class="popup-content" (click)="$event.stopPropagation()">
     <button class="close-button" (click)="onClose()">×</button>
     <h2>Account</h2>
-    <button class="account-btn" (click)="onLogin()">Log In</button>
+    <button class="account-btn" (click)="onSessionButtonClick()">{{ Session }}</button>
     <button class="account-btn" (click)="onRegister()">Register</button>
   </div>
 </div>

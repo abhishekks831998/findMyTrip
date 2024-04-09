@@ -91,12 +91,8 @@
   }
 }
 
-{
-<
-style
->
-.
-form-check-label
+
+.form-check-label
 {
   display: inline-block
 ;
@@ -111,11 +107,4 @@ form-check-label
 
 .form-check {
   display: inline-block;
-}
-
-<
-/
-style
->
-
 }
