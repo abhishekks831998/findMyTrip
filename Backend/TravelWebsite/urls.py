@@ -33,5 +33,7 @@ router.register(r'register', views.RegisterViewSet, basename='register')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls'))
+    path('api-auth/', include('rest_framework.urls')),
+    path('login/', views.LoginViewSet.as_view(), name='login'),
+    path('logout/', views.LogoutViewSet.as_view(), name='logout'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

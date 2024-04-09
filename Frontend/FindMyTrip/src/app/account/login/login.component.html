@@ -7,25 +7,15 @@
 
   <div class="right-panel">
     <h2>Welcome Aboard</h2>
-
-    <!-- Placeholder for Social Media Icons -->
-
+    <p>Sign in to your account to get started</p>
     <form (submit)="onSubmit()" class="login-form">
-      <input type="email" [(ngModel)]="loginObj.user_name" name="email" placeholder="Email" required class="input-field">
-      <input type="password" [(ngModel)]="loginObj.password" name="password" placeholder="Password" required class="input-field">
-
-      <div class="radio-buttons">
-        <label class="radio-label">
-          <input type="radio" [(ngModel)]="loginObj.type" value="user" name="loginType" class="radio-input"> User
-        </label>
-        <label class="radio-label">
-          <input type="radio" [(ngModel)]="loginObj.type" value="agent" name="loginType" class="radio-input"> Agent
-        </label>
+      <input type="user_name" [(ngModel)]="user_name" name="user_name" placeholder="User Name" required class="input-field">
+      <input type="password" [(ngModel)]="password" name="password" placeholder="Password" required class="input-field">
+       <div *ngIf="flag" class="alert alert-success">
+          Login successful!
       </div>
-
-      <button type="submit" class="sign-in-button">Sign In</button>
-      <button class="new-user-button" (click)="goToRegister()">New User (Register)</button>
-        <button class="forgot-password-button" (click)="onForgotPassword()">Forgot Password?</button>
+      <button type="submit" [disabled]="isButtonDisabled" class="sign-in-button">{{button_name}}</button>
+      <button class="new-user-button" (click)="goToRegister()">New User (Register) ?</button>
     </form>
   </div>
 </div>

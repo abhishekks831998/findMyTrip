@@ -14,9 +14,12 @@ from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, viewsets, generics, status
 from django.http import HttpResponseRedirect, HttpResponse
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate
 from django.contrib.auth.models import User as BaseUser
 import base64
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from .models import User as CustomUser
 from django.core.files.base import ContentFile
 from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -26,6 +29,40 @@ def custom_logout(request):
     logout(request)
     # Redirect to homepage or login page after logout
     return HttpResponseRedirect('/')
+
+class LogoutViewSet(APIView):
+    permission_classes = [True]
+
+    def post(self, request, *args, **kwargs):
+        request.auth.delete()
+        return Response({'message': 'Logout successful'}, status=status.HTTP_200_OK)
+
+class LoginViewSet(APIView):
+    def post(self, request, *args, **kwargs):
+        username = request.data.get('username')
+        password = request.data.get('password')
+
+        if username and password:
+            if BaseUser.objects.filter(username=username).exists():
+                user = authenticate(username=username, password=password)
+                if user is None:
+                    return Response({'error': 'Invalid username/password.'}, status=status.HTTP_400_BAD_REQUEST)
+                token, created = Token.objects.get_or_create(user=user)
+
+                return Response({
+                'token': token.key,
+                'user': {
+                    'id': user.id,  # CustomUser ID which is the same as the BaseUser ID
+                    'first_name': user.first_name,
+                    'last_name': user.last_name,
+                    'is_staff': user.is_staff,
+                    'email': user.email
+                }
+            }, status=status.HTTP_200_OK)
+            print(username, password)
+            return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'Invalid username/password.'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class HotelViewSet(viewsets.ModelViewSet):

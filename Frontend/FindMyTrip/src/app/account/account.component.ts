@@ -1,13 +1,15 @@
-import { Component, Output, EventEmitter} from '@angular/core';
+import { Component, Output, EventEmitter, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrl: './account.component.css'
 })
-export class AccountComponent {
+export class AccountComponent implements OnInit{
   @Output() closePopup = new EventEmitter<void>();
+  Session = "";
 
   constructor(private router: Router) { }
   onLogin(): void {
@@ -23,4 +25,14 @@ export class AccountComponent {
   onClose(): void {
     this.router.navigate(['/home']);
   }
+
+  ngOnInit() {
+    if (localStorage.getItem('token')) {
+      this.Session = "Logout";
+    }
+    else {
+      this.Session = "Login";
+    }
+  }
+
 }

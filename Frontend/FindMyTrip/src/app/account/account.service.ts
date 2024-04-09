@@ -20,4 +20,10 @@ export class AccountService {
   updateUser(val: any, pk: number | undefined){
     return this.http.put(this.APIUrl + '/register/'+pk+'/',val);
   }
+  login(credentials: { username: string; password: string }): Observable<any> {
+    return this.http.post(this.APIUrl + '/login/', credentials);
+  }
+  logout(){
+    return this.http.post(this.APIUrl + '/logout/',null);
+  }
 }
