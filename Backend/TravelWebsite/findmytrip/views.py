@@ -7,7 +7,6 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Hotel, Flight, Activity, Package, Booking
 from .serializers import HotelSerializer, FlightSerializer, ActivitySerializer, PackageSerializer, BookingSerializer, RegisterSerializer
 from rest_framework.permissions import IsAuthenticated
-from .permissions import IsAgent
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -23,6 +22,7 @@ from .models import User as CustomUser
 from django.core.files.base import ContentFile
 from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
+from .permissions import IsStaffReadOnly
 
 
 def custom_logout(request):
@@ -30,44 +30,51 @@ def custom_logout(request):
     # Redirect to homepage or login page after logout
     return HttpResponseRedirect('/')
 
-class LogoutViewSet(APIView):
-    permission_classes = [True]
 
+class LogoutViewSet(APIView):
     def post(self, request, *args, **kwargs):
-        request.auth.delete()
+        logout(request)
         return Response({'message': 'Logout successful'}, status=status.HTTP_200_OK)
+
 
 class LoginViewSet(APIView):
     def post(self, request, *args, **kwargs):
         username = request.data.get('username')
         password = request.data.get('password')
 
-        if username and password:
-            if BaseUser.objects.filter(username=username).exists():
-                user = authenticate(username=username, password=password)
-                if user is None:
-                    return Response({'error': 'Invalid username/password.'}, status=status.HTTP_400_BAD_REQUEST)
-                token, created = Token.objects.get_or_create(user=user)
+        # Check if both username and password have been provided
+        if not username or not password:
+            return Response({'error': 'Both username and password are required.'}, status=status.HTTP_400_BAD_REQUEST)
 
-                return Response({
-                'token': token.key,
-                'user': {
-                    'id': user.id,  # CustomUser ID which is the same as the BaseUser ID
-                    'first_name': user.first_name,
-                    'last_name': user.last_name,
-                    'is_staff': user.is_staff,
-                    'email': user.email
-                }
-            }, status=status.HTTP_200_OK)
-            print(username, password)
-            return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
-        else:
+        # Check if a user with the provided username exists
+        if not BaseUser.objects.filter(username=username).exists():
             return Response({'error': 'Invalid username/password.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Authenticate the user
+        user = authenticate(username=username, password=password)
+        if user is None:
+            return Response({'error': 'Invalid username/password.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Generate or get the token for the user
+        token, created = Token.objects.get_or_create(user=user)
+
+        # Return the token and user information
+        return Response({
+            'token': token.key,
+            'user': {
+                'id': user.id,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'is_staff': user.is_staff,
+                'email': user.email
+            }
+        }, status=status.HTTP_200_OK)
 
 
 class HotelViewSet(viewsets.ModelViewSet):
     queryset = Hotel.objects.all()
     serializer_class = HotelSerializer
+    permission_classes = [IsStaffReadOnly]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["name", "address"]
     search_fields = ["name", "address"]
@@ -92,7 +99,7 @@ class ActivityViewSet(viewsets.ModelViewSet):
 class PackageViewSet(viewsets.ModelViewSet):
     queryset = Package.objects.all()
     serializer_class = PackageSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsStaffReadOnly]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["name", "duration_in_days"]
     search_fields = ["name", "duration_in_days"]
@@ -120,15 +127,13 @@ class PackageViewSet(viewsets.ModelViewSet):
 @csrf_exempt
 def package_upload(request):
     if request.method == 'POST':
-        # Access file with request.FILES['image'] if 'image' is the field name
         image = request.FILES.get('image')
-        # Process the rest of the form data and save your model instance
         return JsonResponse({'message': 'Package created/updated successfully'})
 
 
 class BookingViewSet(viewsets.ModelViewSet):
     serializer_class = BookingSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsStaffReadOnly]
     queryset = Booking.objects.all()
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["user", "package", "booked_on"]
@@ -149,7 +154,7 @@ class BookingViewSet(viewsets.ModelViewSet):
         """
         serializer.save(user=self.request.user)
 
-    @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
+    @action(detail=False, methods=['get'], permission_classes=[IsStaffReadOnly])
     def packages(self, request):
         """
         This view should return a list of all packages.
@@ -163,7 +168,7 @@ class BookingViewSet(viewsets.ModelViewSet):
             serializer = PackageSerializer(packages, many=True)
             return Response(serializer.data)
 
-    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
+    @action(detail=True, methods=['post'], permission_classes=[IsStaffReadOnly])
     def book_package(self, request, pk=None):
         """
         Allows a user to book a package by specifying the package's ID.

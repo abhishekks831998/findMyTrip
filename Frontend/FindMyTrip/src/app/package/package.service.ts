@@ -7,23 +7,31 @@ import { Observable } from 'rxjs';
 })
 export class PackageService {
   readonly APIUrl = 'http://127.0.0.1:8000';
-  headers: any;
-  constructor(private http: HttpClient) {
-    const username = 'root'; // Replace 'login' with your actual username
-    const password = 'root'; // Replace 'password' with your actual password
-    const authHeader = 'Basic ' + btoa(username + ':' + password);
 
-    // Define HTTP headers with the authentication header
-    this.headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': authHeader
-    });
+  constructor(private http: HttpClient) {}
+
+  private getHeaders(): HttpHeaders {
+    // Retrieve the token from local storage
+    const token = localStorage.getItem('token'); // Ensure 'token' is the key you used to store the token
+
+    // Return headers with the Authorization header if token exists
+    if (token) {
+      return new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + token  // Assuming you're using Token authentication (e.g., Django Rest Framework Token)
+      });
+    } else {
+      return new HttpHeaders({
+        'Content-Type': 'application/json'
+      });
+    }
   }
 
-  getPackageList():Observable<any[]>{
-    return this.http.get<any>(this.APIUrl + '/packages/',{ headers: this.headers });
+  getPackageList(): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/packages/', { headers: this.getHeaders() });
   }
-  addPackage(val:any){
+
+  addPackage(val: any) {
     const formData = new FormData();
     formData.append('name', val.name);
     formData.append('description', val.description);
@@ -32,23 +40,26 @@ export class PackageService {
     formData.append('flights', val.flights);
     formData.append('activities', val.activities);
     formData.append('image', val.image);
-    console.log(formData);
-    return this.http.post(this.APIUrl + '/packages/',formData,{ headers: this.headers });
-  }
-  updatePackage(val: any, pk: number | undefined){
-    return this.http.put(this.APIUrl + '/packages/'+pk+'/',val,{ headers: this.headers });
-  }
-  deletePackage(val:any){
-    return this.http.delete(this.APIUrl + '/packages/'+val,{ headers: this.headers });
+    return this.http.post(this.APIUrl + '/packages/', formData, { headers: this.getHeaders() });
   }
 
-  getHotelList():Observable<any[]>{
-    return this.http.get<any>(this.APIUrl + '/hotels/',{ headers: this.headers });
+  updatePackage(val: any, pk: number | undefined) {
+    return this.http.put(this.APIUrl + '/packages/' + pk + '/', val, { headers: this.getHeaders() });
   }
-  getFlightList():Observable<any[]>{
-    return this.http.get<any>(this.APIUrl + '/flights/',{ headers: this.headers });
+
+  deletePackage(val: any) {
+    return this.http.delete(this.APIUrl + '/packages/' + val, { headers: this.getHeaders() });
   }
-  getActivityList():Observable<any[]>{
-    return this.http.get<any>(this.APIUrl + '/activities/',{ headers: this.headers });
+
+  getHotelList(): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/hotels/', { headers: this.getHeaders() });
+  }
+
+  getFlightList(): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/flights/', { headers: this.getHeaders() });
+  }
+
+  getActivityList(): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/activities/', { headers: this.getHeaders() });
   }
 }

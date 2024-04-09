@@ -1,3 +1,4 @@
+/* Main layout and background */
 .container {
   display: flex;
   height: 100vh;
@@ -10,7 +11,7 @@
 
 .left-panel, .right-panel {
   padding: 40px;
-  flex-basis: 45%; /* Slightly reduced to prevent overlap on smaller screens */
+  flex-basis: 45%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,20 +22,17 @@
 }
 
 .left-panel {
-  margin-right: 10px; /* Adjusted overlap */
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
+  margin-right: 10px;
   background: rgba(255, 255, 255, 0.8);
   color: #333;
 }
 
 .right-panel {
-  margin-left: 10px; /* Adjusted overlap */
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
+  margin-left: 10px;
   background: rgba(255, 255, 255, 0.9);
 }
 
+/* Typography */
 h1 {
   font-size: 2.5em;
   margin-bottom: 0.5em;
@@ -45,6 +43,21 @@ p {
   margin-bottom: 1em;
 }
 
+/* Form elements */
+.input-field {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 1em;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.input-field::placeholder {
+  color: #aaa;
+}
+
+/* Buttons */
 button {
   width: 100%;
   padding: 15px;
@@ -58,8 +71,13 @@ button {
 }
 
 .sign-in-button, .register-button {
-  background-color: #556B2F; /* Olive Green */
+  background-color: #556B2F;
   color: white;
+}
+
+.sign-in-button:hover, .register-button:hover,
+.sign-in-button:focus, .register-button:focus {
+  background-color: #6B8E23;
 }
 
 .forgot-password-button {
@@ -72,23 +90,39 @@ button {
   cursor: pointer;
 }
 
-.sign-in-button:hover, .register-button:hover {
-  background-color: #6B8E23; /* Dark Olive Green */
-}
-
-.forgot-password-button:hover {
+.forgot-password-button:hover,
+.forgot-password-button:focus {
   color: #6B8E23;
 }
 
-.input-field {
-  width: calc(100% - 20px);
-  padding: 10px;
-  margin-bottom: 1em;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-sizing: border-box;
+/* Responsive Design */
+@media (max-width: 1080px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .left-panel, .right-panel {
+    flex-basis: auto;
+    width: 80%;
+    margin: 20px 0;
+  }
 }
 
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2em;
+  }
+
+  p, .radio-label {
+    font-size: 1em;
+  }
+
+  .left-panel, .right-panel {
+    padding: 20px;
+  }
+}
+
+/* Additional Styles */
 .radio-buttons {
   margin: 20px 0;
   display: flex;
@@ -110,7 +144,6 @@ button {
   text-align: center;
 }
 
-/* Extra styles for placeholders for social media icons */
 .social-login {
   display: flex;
   justify-content: center;
@@ -130,17 +163,100 @@ button {
 .social-icon:hover {
   background: #ccc;
 }
-
-/* Responsive adjustments */
-@media (max-width: 1080px) {
-  .container {
-    flex-direction: column;
-  }
-
-  .left-panel, .right-panel {
-    flex-basis: auto; /* Allow panels to adjust naturally to content size */
-    width: 80%; /* Improved spacing on smaller devices */
-    margin: 20px 0; /* Increased spacing for better separation on mobile */
-  }
+.modal {
+  /* Use flexbox to center the modal vertically and horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Create a semi-transparent dark backdrop */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Ensure the modal covers the entire screen */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  /* Use z-index to ensure the modal sits above other content */
+  z-index: 1050;
 }
 
+.modal-dialog {
+  /* Use a transform to animate the modal appearing */
+  transform: translateY(-50%);
+  transition: transform 0.3s ease-out;
+}
+
+.modal-content {
+  /* Soften the corners of the modal */
+  border-radius: 8px;
+  /* Add a shadow for depth */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Use a light background and a subtle border for sophistication */
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}
+
+.modal-header {
+  display: flex; /* Use flexbox for positioning */
+  justify-content: space-between; /* Align items to the space between */
+  align-items: center; /* Align items vertically */
+  padding: 1rem; /* Add padding for spacing */
+  border-bottom: 1px solid #dee2e6; /* Add a border for separation */
+}
+
+.modal-title {
+  margin: 0; /* Remove any default margin */
+  font-size: 1.5rem; /* Set the size of the title */
+  font-weight: 600; /* Make the title bold */
+  line-height: 1.2; /* Adjust line height to ensure it fits in one line */
+  flex-grow: 1; /* Allow the title to grow and take available space */
+}
+
+.modal-body {
+  /* Use padding for a spacious feel */
+  padding: 1rem;
+  /* Style the text for readability */
+  font-size: 1rem;
+  color: #333;
+}
+
+.close {
+  font-size: 1.5rem; /* Size of the close button */
+  margin: 0; /* Remove any default margin */
+  padding: 1rem; /* Add padding for easier clickability */
+  background: transparent; /* Ensure background is transparent */
+  border: 0; /* Remove any default border */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  opacity: 0.5; /* Make the button a bit transparent for aesthetics */
+}
+
+.close:hover {
+  opacity: 1; /* Full opacity on hover for feedback */
+}
+
+.btn-secondary {
+  /* Use a more refined color for the secondary button */
+  background-color: #6c757d;
+  color: #fff;
+  /* Soften the edges */
+  border-radius: 5px;
+  /* Add padding for a comfortable click area */
+  padding: 0.375rem 0.75rem;
+  /* Style the border for consistency */
+  border: 1px solid transparent;
+}
+
+.btn-secondary:hover {
+  /* Darken the button on hover for feedback */
+  background-color: #5a6268;
+}
+
+/* Enhance the modal appearance on larger screens */
+@media (min-width: 576px) {
+  .modal-dialog {
+    /* Constrain the modal width for readability */
+    max-width: 500px;
+    /* Add margin to ensure it doesn't touch the viewport edges */
+    margin: 1.75rem auto;
+  }
+}

@@ -10,6 +10,7 @@ import { ChangeDetectorRef } from '@angular/core';
 export class ShowHotelComponent implements OnInit{
   ModalTitle: any;
   query: string = ''; // Define query property here
+  isUserStaff: boolean = false;
 
   constructor(private service:SharedService, private cdRef: ChangeDetectorRef) { }
 
@@ -20,6 +21,15 @@ export class ShowHotelComponent implements OnInit{
 
   ngOnInit() : void {
     this.refreshHotelList(null);
+    this.checkUserStatus();
+
+  }
+
+  checkUserStatus() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.isUserStaff = localStorage.getItem('isStaff') === 'true';
+    }
   }
 
   addClick(){
@@ -31,6 +41,7 @@ export class ShowHotelComponent implements OnInit{
     this.ModelTitle = "Add Hotel";
     this.ActivateAddEditHotelComponent = true;
   }
+
   editClick(item: any){
     this.hotel = item;
     this.ModelTitle = "Edit Hotel";
@@ -46,10 +57,10 @@ export class ShowHotelComponent implements OnInit{
     if(confirm('Are you sure??')){
       this.service.deleteHotel(item.id).subscribe(data=>{
         alert(data.toString());
-        this.refreshHotelList(null);
         this.cdRef.detectChanges()
       });
     }
+     this.refreshHotelList(null);
   }
 
   refreshHotelList(searchResult: any){

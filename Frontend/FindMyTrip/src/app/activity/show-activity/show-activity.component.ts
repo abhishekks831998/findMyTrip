@@ -10,6 +10,8 @@ import { ChangeDetectorRef } from '@angular/core';
 export class ShowActivityComponent implements OnInit{
 ModalTitle: any;
 query: string = '';
+isUserStaff: boolean = false;
+
 
   constructor(private service:SharedService, private cdRef: ChangeDetectorRef) { }
 
@@ -20,6 +22,14 @@ query: string = '';
 
   ngOnInit() : void {
     this.refreshActivityList(null);
+    this.checkUserStatus();
+  }
+
+  checkUserStatus() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.isUserStaff = localStorage.getItem('isStaff') === 'true';
+    }
   }
 
   addClick(){
@@ -46,10 +56,10 @@ query: string = '';
     if(confirm('Are you sure??')){
       this.service.deleteActivity(item.id).subscribe(data=>{
         alert(data.toString());
-        this.refreshActivityList(null);
         this.cdRef.detectChanges()
       });
     }
+    this.refreshActivityList(null);
   }
 
   refreshActivityList(searchResult: any){

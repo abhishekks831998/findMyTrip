@@ -10,6 +10,8 @@ import { ChangeDetectorRef } from '@angular/core';
 export class ShowFlightComponent implements OnInit {
   ModalTitle: any;
   query: string = ''; // Define query property here
+  isUserStaff: boolean = false;
+
 
   constructor(private service: SharedService, private cdRef: ChangeDetectorRef) { }
 
@@ -20,6 +22,14 @@ export class ShowFlightComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshFlightList(null);
+    this.checkUserStatus();
+  }
+
+  checkUserStatus() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.isUserStaff = localStorage.getItem('isStaff') === 'true';
+    }
   }
 
   addClick() {
@@ -46,10 +56,10 @@ export class ShowFlightComponent implements OnInit {
     if (confirm('Are you sure??')) {
       this.service.deleteFlight(item.id).subscribe(data => {
         alert(data.toString());
-        this.refreshFlightList(null);
         this.cdRef.detectChanges();
       });
     }
+    this.refreshFlightList(null);
   }
 
   refreshFlightList(searchResult: any) {
