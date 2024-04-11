@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PackageService} from "../package.service";
+import { NgOptimizedImage } from '@angular/common'
 import {AddEditPackagesComponent} from "../add-edit-packages/add-edit-packages.component";
 
 @Component({

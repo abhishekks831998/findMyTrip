@@ -15,6 +15,9 @@ interface Activity {
   id: number;
   title: string;
 }
+interface Diff {
+  [key: string]: any;
+}
 
 @Component({
   selector: 'app-add-edit-packages',
@@ -25,6 +28,7 @@ interface Activity {
 export class AddEditPackagesComponent implements OnInit {
 
   @Input() package: any;
+  packageCopy: {}  | undefined;
   id: number | undefined;
   name: string | undefined;
   description: string | undefined;
@@ -102,21 +106,79 @@ export class AddEditPackagesComponent implements OnInit {
     }
   }
 
-  updatePackage() {
-    const formData = new FormData();
-    formData.append('id', this.package.id);
-    formData.append('name', this.package.name);
-    formData.append('description', this.package.description);
-    formData.append('duration_in_days', this.package.duration_in_days);
-    formData.append('hotels', JSON.stringify(this.selectedHotels));
-    formData.append('flights', JSON.stringify(this.selectedFlights));
-    formData.append('activities', JSON.stringify(this.selectedActivities));
-
-    if (this.package.image instanceof File) {
-      formData.append('image', this.package.image, this.package.image.name);
+  getObjectDiff(obj1: any, obj2: any): any {
+    const diff: any = {};
+    for (const key in obj1) {
+        if (obj1.hasOwnProperty(key)) {
+            if (obj2.hasOwnProperty(key)) {
+                if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
+                    const subDiff = this.getObjectDiff(obj1[key], obj2[key]);
+                    if (Object.keys(subDiff).length > 0) {
+                        diff[key] = obj2[key];
+                    }
+                } else if (obj1[key] !== obj2[key]) {
+                    diff[key] = obj2[key];
+                }
+            } else {
+                diff[key] = obj1[key];
+            }
+        }
     }
 
-    console.log(formData);
+    for (const key in obj2) {
+        if (obj2.hasOwnProperty(key) && !obj1.hasOwnProperty(key)) {
+            diff[key] = obj2[key];
+        }
+    }
+
+    return diff;
+}
+
+arrayToInt(arr: any[]): number[] {
+  return arr.map(item => parseInt(item, 10));
+}
+
+updatePackage() {
+    var update = {
+      id: this.id,
+      name: this.name,
+      description: this.description,
+      duration_in_days: this.duration_in_days,
+      hotels: this.selectedHotels,
+      flights: this.selectedFlights,
+      activities: this.selectedActivities,
+    };
+    var diff : Diff = this.getObjectDiff(this.packageCopy,update);
+    delete diff["image"];
+    if(diff['hotels']){
+      diff['hotels'] = this.arrayToInt(diff['hotels']);
+    }
+    if(diff['flights']){
+      diff['flights'] = this.arrayToInt(diff['flights']);
+    }
+    if(diff['activities']){
+      diff['activities'] = this.arrayToInt(diff['activities']);
+    } 
+    var temp = JSON.parse(JSON.stringify(this.packageCopy));
+    for (const key in diff) {
+      temp[key] = diff[key];
+    }
+    
+    
+    const formData = new FormData();
+    formData.append('id', temp.id);
+    formData.append('name', temp.name);
+    formData.append('description', temp.description);
+    formData.append('duration_in_days', temp.duration_in_days);
+    formData.append('hotels', temp.hotels);
+    formData.append('flights', temp.flights);
+    formData.append('activities', temp.activities);
+    for (const key in diff) {
+      formData.append(key,diff[key]);
+    }
+    if (this.image) {
+      formData.append('image', this.image, this.image.name);
+    }
     this.service.updatePackage(formData, this.id).subscribe(res => {
       alert(res.toString());
     });
@@ -132,13 +194,17 @@ export class AddEditPackagesComponent implements OnInit {
   ngOnInit(): void {
       this.fetchAll();
     if (this.package && this.package.id !== 0) {
+      this.packageCopy = JSON.parse(JSON.stringify(this.package));
       this.id = this.package.id;
       this.name = this.package.name;
       this.description = this.package.description;
       this.duration_in_days = this.package.duration_in_days;
-      this.image = this.package.image;
-      this.hotels = this.selectedHotels;
+      //this.image = this.package.image;
+      this.selectedHotels = this.package.hotels;
+      this.hotels= this.selectedHotels;
+      this.selectedFlights = this.package.flights;
       this.flights = this.selectedFlights;
+      this.selectedActivities = this.package.activities;
       this.activities = this.selectedActivities;
     }
   }

@@ -27,6 +27,23 @@ export class PackageService {
     }
   }
 
+  private getFormHeaders(): HttpHeaders {
+    // Retrieve the token from local storage
+    const token = localStorage.getItem('token'); // Ensure 'token' is the key you used to store the token
+
+    // Return headers with the Authorization header if token exists
+    if (token) {
+      return new HttpHeaders({
+        'Authorization': 'Token ' + token,  // Assuming you're using Token authentication (e.g., Django Rest Framework Token)
+        'Accept': 'application/json'
+      });
+    } else {
+      return new HttpHeaders({
+        'Content-Type': 'application/json'
+      });
+    }
+  }
+
   getPackageList(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl + '/packages/', { headers: this.getHeaders() });
   }
@@ -39,12 +56,13 @@ export class PackageService {
     formData.append('hotels', val.hotels);
     formData.append('flights', val.flights);
     formData.append('activities', val.activities);
-    formData.append('image', val.image);
-    return this.http.post(this.APIUrl + '/packages/', formData, { headers: this.getHeaders() });
+    if(val.image)
+    formData.append('image', val.image, val.image.name);
+    return this.http.post(this.APIUrl + '/packages/', formData, { headers: this.getFormHeaders() });
   }
 
   updatePackage(val: any, pk: number | undefined) {
-    return this.http.put(this.APIUrl + '/packages/' + pk + '/', val, { headers: this.getHeaders() });
+    return this.http.put(this.APIUrl + '/packages/' + pk + '/', val, { headers: this.getFormHeaders() });
   }
 
   deletePackage(val: any) {

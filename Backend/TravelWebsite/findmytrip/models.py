@@ -45,7 +45,7 @@ class Package(models.Model):
     hotels = models.ManyToManyField(Hotel)
     activities = models.ManyToManyField(Activity)
     flights = models.ManyToManyField(Flight)
-    image = models.ImageField(blank=True, default='media/default_image.jpg',upload_to='media')
+    image = models.ImageField(blank=True, default='default_image.jpg',upload_to='media/')
 
     def __str__(self):
         return self.name
