@@ -1,74 +1,17 @@
-.navbar {
-  background-color: #0065d3; /* or any other color you prefer */
-  color: white;
-  padding: 1px 10px;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-}
-
-.navbar-logo a {
-  color: white;
-  text-decoration: none;
+.nav-link {
+  margin-right: 15px; /* Increased spacing between items */
+  font-size: 14px; /* Larger font size for better readability */
   font-weight: bold;
-  font-size: 24px;
 }
 
-body {
-  margin: 0;
-  padding-top: 20px; /* to make sure the content does not hide under the fixed navbar */
-  font-family: 'Arial', sans-serif;
+.navbar-brand {
+  font-weight: bold; /* Keep the brand name bold */
+  font-size: 24px; /* Larger font size for the brand */
+  color: #333; /* Dark color for better visibility */
 }
 
-/* Global styles */
-
-
-/* Global styles can go here */
-
-
-
-.navbar-menu {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1; /* Allows menu items to take up the remaining space */
-}
-
-.navbar-item {
-  display: flex;
-  align-items: flex-start;
-  margin: 0 10px;
-  color: white;
-  text-decoration: none;
-  font-size: 16px;
-  transition: color 0.3s;
-}
-
-.navbar-item:hover {
-  color: #ffdd00; /* Highlight color on hover */
-}
-
-.navbar-item i {
-  margin-right: 5px;
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-  }
-
-  .navbar-menu {
-    width: 100%;
-    justify-content: space-around;
-    margin-top: 10px;
-  }
-
-  .navbar-item {
-    margin: 5px 0; /* Adjust space for mobile */
-  }
-
+.nav-link i {
+  margin-right: 5px; /* Adjusted spacing between icon and text */
+  font-size: 18px; /* Larger font size for icons */
+  vertical-align: middle; /* Aligns icon with text vertically */
 }

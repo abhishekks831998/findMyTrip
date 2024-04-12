@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from '../account.service';
 import { catchError } from "rxjs/operators";
@@ -10,13 +10,14 @@ import { of } from 'rxjs';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   user_name: string = '';
   password: string = '';
   isButtonDisabled = false;
   button_name = "Log In";
   isLoggedIn = false; // Renamed for clarity
   showErrorModal: boolean = false; // For controlling error modal visibility
+  msg = ""
 
   constructor(private router: Router, private service: AccountService) {}
 
@@ -43,7 +44,8 @@ export class LoginComponent {
         localStorage.setItem('token', res.token);
         localStorage.setItem('isStaff', res.user.is_staff);
         this.isLoggedIn = true;
-        this.router.navigate(['/account']);
+        this.button_name = "Log Out";
+        this.msg = "Login successful !";
       }
     });
   }
@@ -52,7 +54,7 @@ export class LoginComponent {
     this.service.logout().subscribe(res => {
       localStorage.removeItem('token');
       this.isLoggedIn = false;
-      this.router.navigate(['/home']);
+      this.button_name = "Log In";
     });
   }
 
@@ -62,5 +64,12 @@ export class LoginComponent {
 
   goToRegister() {
     this.router.navigate(['/register']);
+  }
+  ngOnInit() {
+    if (localStorage.getItem('token')) {
+      this.isLoggedIn = true;
+      this.button_name = "Log Out";
+      this.msg = "You are already logged in !";
+    }
   }
 }
