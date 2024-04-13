@@ -47,6 +47,22 @@ class Package(models.Model):
     flights = models.ManyToManyField(Flight)
     image = models.ImageField(blank=True, default='default_image.jpg',upload_to='media/')
 
+    def calculate_total_price(self):
+        total_price = 0
+        # Calculate the total price for all selected hotels per duration of the package
+        for hotel in self.hotels.all():
+            total_price += hotel.hotel_price * self.duration_in_days
+
+        # Add one-time prices for all selected activities
+        for activity in self.activities.all():
+            total_price += activity.activity_price
+
+        # Add one-time prices for all selected flights
+        for flight in self.flights.all():
+            total_price += flight.flight_price
+
+        return total_price
+
     def __str__(self):
         return self.name
 

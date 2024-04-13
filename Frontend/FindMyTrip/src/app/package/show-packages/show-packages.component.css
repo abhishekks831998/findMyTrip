@@ -6,7 +6,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* The minmax ensures columns are at least 200px wide */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Columns are at least 200px wide */
   gap: 20px;
   padding: 20px;
 }
@@ -24,6 +24,19 @@
   object-fit: cover;
   border-radius: 10px;
 }
+.link-button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  display: inline;
+}
+
+.link-button:hover {
+  text-decoration: underline;
+}
 
 .overlay {
   position: absolute;
@@ -38,7 +51,7 @@
   transition: visibility 0s, opacity 0.5s ease-in-out;
 }
 
-.grid-item:hover .overlay {
+.image-container:hover .overlay {
   visibility: visible;
   opacity: 1;
 }
@@ -51,12 +64,12 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-  color:black
+  color: black;
 }
 
 .btn:hover {
   background-color: firebrick;
-  color : white;
+  color: white;
 }
 
 .grid-item p {
@@ -64,14 +77,8 @@
 }
 
 .package-name {
-  font-size: 15px; /* Adjust the font size as needed */
-  color: white; /* Adjust the font color as needed */
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
 }
-
-.package-name {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    color: #333;
-    font-weight: bold;
-}
-

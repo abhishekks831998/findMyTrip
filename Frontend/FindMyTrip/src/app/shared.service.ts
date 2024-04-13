@@ -72,4 +72,13 @@ readonly APIUrl = "http://127.0.0.1:8000";
   deleteActivity(val:any){
     return this.http.delete(this.APIUrl + '/activities/'+val,{ headers: this.getHeaders() });
   }
+  getHotelByID(pk:any){
+    return this.http.get(this.APIUrl + '/hotels/'+pk+'/');
+  }
+  getFlightByID(pk:any){
+    return this.http.get(this.APIUrl + '/flights/'+pk+'/');
+  }
+  getActivityByID(pk:any){
+    return this.http.get(this.APIUrl + '/activities/'+pk+'/');
+  }
 }

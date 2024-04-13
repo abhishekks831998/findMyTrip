@@ -1,85 +1,108 @@
-/* General Styling */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    padding: 20px;
+/* Styling for the overall container and modal */
+
+.actions-container {
+  display: flex;
+  align-items: center;  /* Aligns items vertically in the center */
+  justify-content: space-between; /* Spreads out the search component and the button */
 }
 
-.container {
-    max-width: 1200px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.app-flightsearch {
+  flex: 1;  /* Allows the search component to take available space */
+  margin: 5px; /* Adds a little space around the search component */
+  margin-bottom: 5px;
 }
 
-/* Table Enhancements */
-.table {
-    width: 100%;
-    margin-bottom: 1rem;
-    color: #212529;
+button.btn {
+  margin: 5px;
+  margin-left: auto;  /* Pushes the button to the right */
+  flex-grow: 0;       /* Prevents the button from growing */
+  flex-shrink: 0;     /* Prevents the button from shrinking */
 }
 
-.table th {
-    padding: 1rem;
-    text-align: center;
-    background-color: #007bff;
-    color: #000000;
-    font-size: 22px; /* Larger font size for headers */
-}
-
-.table td {
-    padding: .75rem;
-    vertical-align: middle;
-    text-align: center;
-    border-top: 1px solid #dee2e6;
-    font-size: 16px; /* Adjust this value as needed */
-}
-
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(0, 0, 0, .05);
-}
-
-/* Button Styling */
-.btn-primary, .btn-danger {
-    color: #fff;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    border-color: #285e8e;
-}
-
-
-.btn-primary:hover, .btn-danger:hover {
-    color: #fff;
-    background-color: #285e8e;
-    border-color: #193c5a;
-}
-
-.close {
-    float: right;
-    font-size: 1.5rem;
-    line-height: 1;
-    color: #000;
-    text-shadow: 0 1px 0 #fff;
-    opacity: .5;
-}
-
-/* Modal Enhancements */
 .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+  background-color: #f8f9fa; /* Soft background for modal */
+  border-radius: 8px; /* Rounded corners for modal */
+  border: 1px solid #e3e6f0; /* Subtle border for the modal */
 }
 
 .modal-header {
-    background: #007bff;
-    color: #fff;
-    border-bottom: 2px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6; /* Light gray border for a soft separation */
+  background-color: #e9ecef; /* Lighter shade for header to differentiate */
 }
 
-.modal-title {
-    color: #fff;
+.close {
+  color: #6c757d; /* Muted color for close button */
+  opacity: 0.8;
+}
+
+.close:hover {
+  opacity: 1; /* Fully opaque when hovered for better interaction */
+}
+
+/* Button styling */
+.btn {
+  border-radius: 5px; /* Rounded corners for all buttons */
+  padding: 8px 16px; /* Adequate padding for button content */
+  text-align: center;
+  transition: background-color 0.2s, border-color 0.2s; /* Smooth transition for visual feedback */
+}
+
+.btn-primary {
+  background-color: #81c784; /* Soft green color */
+  border-color: #66bb6a; /* Slightly darker green for border */
+  color: black; /* White text for contrast */
+}
+
+.btn-primary:hover {
+  background-color: #66bb6a; /* A shade darker when hovered */
+  border-color: #388e3c; /* Even darker border to highlight hover */
+}
+
+.btn-danger {
+  background-color: #ef9a9a; /* Soft red for danger actions */
+  border-color: #e57373; /* Slightly darker border for depth */
+  color: black;
+}
+
+.btn-danger:hover {
+  background-color: #e57373; /* Darker red on hover */
+  border-color: #d32f2f; /* Deeper red for border */
+}
+
+/* Table styling */
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+
+.table th, .table td {
+  padding: 0.75rem; /* Spacing within cells */
+  vertical-align: top;
+  border-top: 1px solid #dee2e6; /* Light border for separation */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(233, 236, 239, 0.5); /* Striped effect for rows */
+}
+
+/* Enhancements for headers to make them stand out */
+thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+  background-color: #e9ecef; /* Soft gray background for headers */
+  font-weight: 500; /* Slightly bolder text for header */
+  font-size: 18px;
+}
+
+/* Adjustments for form inputs within the modal */
+.input-group-text, .form-control {
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+}
+
+.form-control:focus {
+  border-color: #80cbc4; /* Focus color that matches the button */
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(128, 203, 196, 0.6); /* Soft glow effect */
 }

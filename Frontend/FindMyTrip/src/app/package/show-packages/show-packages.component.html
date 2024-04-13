@@ -40,6 +40,8 @@
         </button>
       </div>
     </div>
-    <p class="package-name">{{ package.name }}</p>
+    <p class="package-name" >
+       <button (click)="viewPackageDetails(package.id,package)" class="link-button">{{ package.name }}</button>
+    </p>
   </div>
 </div>

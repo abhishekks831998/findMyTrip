@@ -22,10 +22,14 @@ class ActivitySerializer(serializers.ModelSerializer):
 
 
 class PackageSerializer(serializers.ModelSerializer):
+    total_price = serializers.SerializerMethodField()
+
+    def get_total_price(self,obj):
+        return obj.calculate_total_price()
 
     class Meta:
         model = Package
-        fields = ['id', 'name','description', 'duration_in_days', 'hotels', 'flights', 'activities', 'image']
+        fields = ['id', 'name','description', 'duration_in_days', 'hotels', 'flights', 'activities','total_price', 'image']
 
 
 class BookingSerializer(serializers.ModelSerializer):

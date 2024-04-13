@@ -1,0 +1,98 @@
+/* Root container */
+.package-details-container {
+    max-width: 960px;
+    margin: 40px auto;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.package-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    opacity: 0.8;
+    color: #6B8E23;
+}
+
+/* Header with image and title */
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 2px;
+    text-align: center;
+    position: relative;
+}
+.title-bar {
+    background-color: #ffffff; /* Solid blue background */
+    padding: 10px 10px; /* Padding for aesthetic spacing */
+    font-size: 2rem; /* Larger font size for visibility */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
+    border-radius: 0 0 10px 10px; /* Rounded corners on the bottom */
+    text-align: center;
+    text-decoration: underline;
+}
+/* Image styling */
+.header img {
+    width: 100%;
+    height: 350px; /* Fixed height for consistency */
+    object-fit: cover; /* Ensures the image covers the area nicely */
+    opacity: 0.8;
+}
+
+.header h1 {
+    position: absolute;
+    bottom: 10px; /* Positioning at the bottom with some space */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center alignment adjustment */
+    background-color: #000000; /* Dark background for contrast */
+    color: #ffffff; /* White text for high contrast */
+    padding: 10px 30px; /* Generous padding for aesthetic spacing */
+    border-radius: 10px; /* Rounded corners for a softer look */
+    font-size: 1.75rem; /* Larger font size for visibility */
+    max-width: 80%; /* Maximum width to manage long titles */
+    text-align: center; /* Center the text within the box */
+}
+
+/* Content area styling */
+.content {
+    padding: 20px;
+    line-height: 1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Ensures a clean, modern font is used */
+}
+
+/* Description styling for readability */
+.description {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Subsection headers */
+h3 {
+    margin-top: 30px;
+    color: #0056b3; /* Echo the header color for consistency */
+    border-bottom: 2px solid #0056b3; /* Adds a subtle line under the heading */
+    padding-bottom: 5px;
+}
+
+/* List styling */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eaeaea; /* Light line for each item */
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+/* Detail styling for list items */
+.info, .hotels, .flights, .activities {
+    margin-bottom: 20px;
+}

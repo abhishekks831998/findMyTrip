@@ -1,5 +1,4 @@
 <div class="container">
-  <form  enctype="multipart/form-data">
     <div class="form-group">
       <label for="packageName">Name</label>
       <input type="text" class="form-control" id="packageName" placeholder="Enter package name" [(ngModel)]="name" name="name" required>
@@ -100,5 +99,4 @@
     <button (click) ="updatePackage()" *ngIf="package.id!=0" class="btn btn-primary">
       Update
     </button>
-  </form>
 </div>

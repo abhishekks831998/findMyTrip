@@ -1,11 +1,11 @@
 .package-header {
   text-align: center;
-  padding: 50px;
+  padding: 20px;
   background-color: #f8f9fa; /* light grey background, you can choose your color */
-  margin-bottom: 30px; /* Spacing between header and the next content */
+  margin-bottom: 10px; /* Spacing between header and the next content */
 }
 
 .package-header h1 {
-  font-size: 2.5rem; /* Large font size for the heading */
+  font-size: 2rem; /* Large font size for the heading */
   color: #343a40; /* Adjust the color to fit your design */
 }

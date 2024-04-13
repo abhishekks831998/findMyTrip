@@ -9,12 +9,14 @@ import { ActivityComponent} from './activity/activity.component';
 import { AccountComponent} from "./account/account.component";
 import {LoginComponent} from "./account/login/login.component";
 import {RegisterComponent} from "./account/register/register.component";
+import {PackageDetailsComponent} from "./package/package-details/package-details.component";
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'bookings', component: BookingComponent },
   { path: 'packages', component: PackageComponent },
+  { path: 'package-details/:id', component: PackageDetailsComponent },
   { path: 'home', component: HomeComponent },
   { path: 'hotels', component: HotelComponent },
   { path: 'flights', component: FlightComponent },

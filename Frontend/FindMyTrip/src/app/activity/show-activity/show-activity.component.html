@@ -1,9 +1,12 @@
-<app-activitysearch (changeactivityList) = "refreshActivityList($event)"></app-activitysearch>
-<button *ngIf="isUserStaff" type="button" class="btn btn-primary float-right m-2"
-        data-toggle="modal" data-target="#exampleModal"
-        (click) = "addClick()" data-backdrop="static" data-keyboard="false">
-  Add Activity
-</button>
+<div class="actions-container">
+  <app-activitysearch (changeactivityList)="refreshActivityList($event)"></app-activitysearch>
+  <button *ngIf="isUserStaff" type="button" class="btn btn-primary float-right m-2"
+          data-toggle="modal" data-target="#exampleModal"
+          (click)="addClick()" data-backdrop="static" data-keyboard="false">
+    Add Activity
+  </button>
+</div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

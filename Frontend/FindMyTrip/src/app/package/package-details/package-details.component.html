@@ -1,0 +1,43 @@
+<!-- package-details.component.html -->
+<div class="package-details-container" *ngIf="package">
+    <div class="title-bar">
+        <h1>{{ package.name }}</h1>
+    </div>
+    <div class="header">
+        <h1>{{ package.name }}</h1>
+        <img [src]="package.image" alt="Image of {{ package.name }}" class="package-image">
+    </div>
+    <div class="content">
+        <p class="description">{{ package.description }}</p>
+        <div class="info">
+            <p><strong>Duration:</strong> {{ package.duration_in_days }} days</p>
+        </div>
+        <div class="hotels">
+            <h3>Hotels Included:</h3>
+            <ul>
+                <li *ngFor="let hotel of allHotels | keyvalue">
+                    {{ hotel.value.name }} - ${{ hotel.value.hotel_price }} per night
+                </li>
+            </ul>
+        </div>
+        <div class="flights">
+            <h3>Flights Included:</h3>
+            <ul>
+                <li *ngFor="let flight of allFlights | keyvalue">
+                    {{ flight.value.airline }} ({{ flight.value.flight_number }}) - ${{ flight.value.flight_price }}
+                </li>
+            </ul>
+        </div>
+        <div class="activities">
+            <h3>Activities Included:</h3>
+            <ul>
+                <li *ngFor="let activity of allActivities | keyvalue">
+                    {{ activity.value.title }} - ${{ activity.value.activity_price }}
+                </li>
+            </ul>
+        </div>
+        <div class="total">
+            <h3>Total Price: ${{ package.total_price }}</h3>
+        </div>
+    </div>
+</div>

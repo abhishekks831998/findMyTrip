@@ -1,92 +1,74 @@
-/* Container styling */
+/* Base container styling */
 .container {
-  max-width: 600px;
-  margin: auto;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  border-radius: 8px;
-  background: #fff;
+  width: 100%;
+  max-width: 600px; /* Sets the maximum width of the container */
+  margin: 40px auto; /* Centers the container on the page and adds vertical spacing */
+  padding: 20px; /* Adds padding inside the container */
+  background-color: #fff; /* Sets the background color to white */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Adds a shadow for depth */
+  border-radius: 8px; /* Rounds the corners of the container */
 }
 
-/* Form input and select box styling */
+/* General form-group styling */
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem; /* Adds space between form groups */
 }
 
-.form-control, .form-control-file {
-  border-radius: 5px;
-  border: 1px solid #ced4da;
-}
-
-.form-control:focus, .form-control-file:focus {
-  border-color: #80bdff;
-  box-shadow: inset 0 1px 1px rgba(0, 123, 255, 0.075), 0 0 8px rgba(128, 189, 255, 0.6);
-}
-
-/* Labels styling */
+/* Label styling */
 label {
-  margin-bottom: 0.5rem;
-  display: block;
-  color: #495057;
+  display: block; /* Ensures the label takes up its own line */
+  margin-bottom: .5rem; /* Adds space below the label */
+  color: #212529; /* Sets the text color */
+  font-size: 1rem; /* Sets the size of the label text */
+}
+
+/* Input, textarea, and select styling */
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+  display: block; /* Ensures the form control takes up the full width of its parent */
+  width: 100%; /* Sets the width to fill the container */
+  padding: .375rem .75rem; /* Adds padding inside the form controls for spacing */
+  font-size: 1rem; /* Sets the size of the input text */
+  line-height: 1.5; /* Sets the line height for better readability */
+  color: #495057; /* Sets the input text color */
+  background-color: #fff; /* Sets the input background color to white */
+  background-clip: padding-box; /* Ensures the background extends to the border */
+  border: 1px solid #ced4da; /* Sets the border color */
+  border-radius: .25rem; /* Slightly rounds the corners of the form control */
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.075); /* Adds an inner shadow for depth */
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out; /* Animates the border and shadow on focus */
+}
+
+/* Hover and focus states for form controls */
+input[type="text"]:hover,
+input[type="number"]:hover,
+textarea:hover,
+select:hover,
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  border-color: #80bdff; /* Changes the border color on hover/focus */
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.075), 0 0 5px rgba(128,189,255,.25); /* Adjusts the shadow on hover/focus */
+  outline: 0; /* Removes the default outline on focus */
 }
 
 /* Button styling */
-.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
-  color: #fff;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+button.btn {
+  color: #fff; /* Sets the button text color to white */
+  background-color: #007bff; /* Sets the background color to a blue shade */
+  border-color: #007bff; /* Sets the border color to match the background */
+  padding: .375rem .75rem; /* Adds padding to the button for spacing */
+  font-size: 1rem; /* Sets the size of the button text */
+  line-height: 1.5; /* Sets the line height for the button text */
+  border-radius: .25rem; /* Slightly rounds the corners of the button */
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out; /* Animates the button properties on hover/focus */
 }
 
-.btn-primary:hover {
-  background-color: #0056b3;
-  border-color: #004085;
-}
-
-/* Handling multiple select box */
-select[multiple] {
-  height: auto;
-  min-height: 120px;
-}
-
-/* Adding space around file input for better appearance */
-.form-control-file {
-  margin-top: 10px;
-}
-
-/* Utility classes for text and padding */
-.text-center {
-  text-align: center;
-}
-
-.p-20 {
-  padding: 20px;
-}
-.selected-hotels-list {
-  border: 1px solid #ced4da;
-  border-radius: .25rem;
-  padding: .5rem;
-  background-color: #f8f9fa;
-}
-
-.selected-hotel {
-  background-color: #e9ecef;
-  border-radius: .25rem;
-  padding: .375rem .75rem;
-  transition: background-color .15s ease-in-out;
-}
-
-.selected-hotel:hover {
-  background-color: #dde2e6;
-}
-
-.hotel-name {
-  margin-right: .5rem;
-}
-
-.btn-outline-danger {
-  font-size: .875rem;
+button.btn:hover,
+button.btn:focus {
+  background-color: #0056b3; /* Darkens the button background on hover/focus */
+  border-color: #0056b3; /* Darkens the button border on hover/focus */
 }

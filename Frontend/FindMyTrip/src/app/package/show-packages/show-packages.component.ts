@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PackageService} from "../package.service";
-import { NgOptimizedImage } from '@angular/common'
-import {AddEditPackagesComponent} from "../add-edit-packages/add-edit-packages.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-show-packages',
@@ -10,7 +9,7 @@ import {AddEditPackagesComponent} from "../add-edit-packages/add-edit-packages.c
 })
 export class ShowPackagesComponent implements OnInit {
 
-  constructor(private service: PackageService) {
+  constructor(private service: PackageService, private router: Router) {
   }
 
   ActivateAddEditPackageComp: boolean = false;
@@ -39,10 +38,10 @@ export class ShowPackagesComponent implements OnInit {
   }
 
   editPackage(data: any): void {
-  this.package = data;
-  this.ActivateAddEditPackageComp = true;
-  this.ModelTitle = "Edit Package";
-
+    console.log("edit clicked");
+    this.package = data;
+    this.ActivateAddEditPackageComp = true;
+    this.ModelTitle = "Edit Package";
   }
 
   deletePackage(packageId: number): void {
@@ -58,9 +57,9 @@ export class ShowPackagesComponent implements OnInit {
     this.refreshPackageList();
   }
 
-  goToPackageDetails(packageId: number): void {
-    // Navigate to package details page
-  }
+ viewPackageDetails(packageId: string,packageObj:any): void {
+  this.router.navigate(['/package-details', packageId], {state: {data: packageObj}});
+}
 
   refreshPackageList() {
     this.service.getPackageList().subscribe(data => {

@@ -31,6 +31,7 @@ import { RegisterComponent } from './account/register/register.component';
 import { FlightsearchComponent } from './flight/flightsearch/flightsearch.component';
 import { HotelsearchComponent } from './hotel/hotelsearch/hotelsearch.component';
 import {ActivitysearchComponent} from './activity/activitysearch/activitysearch.component';
+import { PackageDetailsComponent } from './package/package-details/package-details.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import {ActivitysearchComponent} from './activity/activitysearch/activitysearch.
     RegisterComponent,
     FlightsearchComponent,
     HotelsearchComponent,
-    ActivitysearchComponent
+    ActivitysearchComponent,
+    PackageDetailsComponent
   ],
   imports: [
     BookingModule,
