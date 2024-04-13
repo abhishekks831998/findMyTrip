@@ -38,6 +38,10 @@ export class PackageDetailsComponent implements OnInit {
 
   }
 
+  bookNow(TravelPack: any): void {
+    console.log("Booking package ", TravelPack);
+  }
+
   ngOnInit(): void {
     if (history.state) {
       this.package = history.state.data;

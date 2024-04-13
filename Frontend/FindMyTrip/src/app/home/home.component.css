@@ -1,37 +1,97 @@
-:host {
-  display: block;
-  height: 100%;
+/* Custom Styles for Concordia Travel */
+
+/* Set consistent height for carousel images */
+.carousel-item img {
+    object-fit: cover;
 }
 
-.homepage-background {
-  background: url('/assets/travel.jpg') no-repeat center center fixed;
-  background-size: cover;
-  height: calc(108vh - 60px); /* Adjust based on your navbar height */
+/* Set padding for sections */
+.section-padding {
+    padding: 40px 0;
+}
+
+/* Flex container for horizontal scrolling */
+.scrolling-wrapper {
+    overflow-x: auto;
+    display: flex;
+    flex-wrap: nowrap; /* Prevents wrapping of items */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+
+/* Hide scrollbar for all devices */
+.scrolling-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+/* Ensure flex containers handle items correctly */
+.row {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.welcome {
-  font-family: 'Pacifico', cursive;
-  font-size: 2rem;
-  margin: 10px;
-  color: indigo;
+/* Make card flex container to allow internal items to expand/align */
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Set a fixed height for all cards */
 }
 
-
-.overlay {
-  background-color: rgba(0, 0, 0, 0); /* Dark overlay for readability */
-  color: white;
-  text-align: center;
-  width: 100%;
-  padding: 20px;
+/* Style for individual package cards */
+.package-card {
+    width: 320px; /* Set width for package cards */
+    margin-right: 15px; /* Margin between cards */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Card shadow for depth */
+    border: none; /* No border */
 }
 
-.slogan {
-  font-family: 'Lucida Handwriting', cursive;
-  font-size: 4rem;
-  margin: 0;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.75);
-  color: white
+/* Card body styling to handle content */
+.card-body {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distributes space inside the card */
+}
+
+/* Fix the height for title and text to ensure uniformity */
+.card-title, .card-text {
+    min-height: 48px; /* Adjust the min-height as needed */
+    overflow: hidden;
+}
+
+/* Style to ensure text is properly aligned and overflow is handled */
+.card-text {
+  overflow: hidden;
+}
+
+/* Style for primary buttons */
+.btn-primary {
+    margin-top: 10px; /* Space above the button */
+}
+
+/* Style for promotions section */
+.bg-light {
+    background-color: #f8f9fa!important; /* Light background for promotions section */
+    padding: 30px 0; /* Padding for the section */
+}
+
+/* Footer styling */
+footer.bg-dark {
+    background-color: #343a40!important; /* Dark footer background */
+    padding: 20px 0; /* Padding for the footer */
+    margin-top: 20px; /* Space above footer */
+}
+/* Adjusting the width of each card within a carousel item */
+.carousel-item .col-md-12 {
+    padding: 0 15px; /* Padding as needed */
+}
+/* Set images in cards to be responsive and maintain aspect ratio */
+.card-img-top {
+    width: 100%;
+    height: 200px; /* Fixed height for consistency */
+}
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: #000; /* Set the color of the carousel control icons */
+    margin: 0 20px; /* Increase the margin to add space between icons */
 }
