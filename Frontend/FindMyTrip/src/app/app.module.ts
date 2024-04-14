@@ -32,6 +32,9 @@ import { FlightsearchComponent } from './flight/flightsearch/flightsearch.compon
 import { HotelsearchComponent } from './hotel/hotelsearch/hotelsearch.component';
 import {ActivitysearchComponent} from './activity/activitysearch/activitysearch.component';
 import { PackageDetailsComponent } from './package/package-details/package-details.component';
+import { ProfileComponent } from './profile/profile.component';
+import { MyprofileComponent } from './profile/myprofile/myprofile.component';
+import { BookingHistoryComponent } from './profile/booking-history/booking-history.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +58,10 @@ import { PackageDetailsComponent } from './package/package-details/package-detai
     FlightsearchComponent,
     HotelsearchComponent,
     ActivitysearchComponent,
-    PackageDetailsComponent
+    PackageDetailsComponent,
+    ProfileComponent,
+    MyprofileComponent,
+    BookingHistoryComponent
   ],
   imports: [
     BookingModule,
