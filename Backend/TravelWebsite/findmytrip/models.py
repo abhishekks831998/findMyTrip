@@ -45,6 +45,7 @@ class Package(models.Model):
     hotels = models.ManyToManyField(Hotel)
     activities = models.ManyToManyField(Activity)
     flights = models.ManyToManyField(Flight)
+    created_by = models.PositiveIntegerField(default=0)
     image = models.ImageField(blank=True, default='default_image.jpg',upload_to='media/')
 
     def calculate_total_price(self):

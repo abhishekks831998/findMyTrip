@@ -24,6 +24,7 @@
   object-fit: cover;
   border-radius: 10px;
 }
+
 .link-button {
   background: none;
   color: inherit;
@@ -82,3 +83,10 @@
   color: #333;
   font-weight: bold;
 }
+
+.separator {
+  height: 2px; /* Thickness of the line */
+  background-color: #ccc; /* Color of the line */
+  margin: 20px 0; /* Vertical space above and below the line */
+}
+

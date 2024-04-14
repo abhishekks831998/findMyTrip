@@ -43,11 +43,16 @@ export class AddEditPackagesComponent implements OnInit {
   hotelsDict: any | {} | undefined;
   flightsDict: any | {} | undefined;
   activitiesDict: any | {} | undefined;
+  userID = 0;
 
   constructor(private service: PackageService) {
   }
 
   addPackage() {
+    if (localStorage.getItem('isStaff') == "false") {
+      console.log("You are not authorized to add a package");
+      this.userID = parseInt(localStorage.getItem('userId') || '0', 10);
+    }
     var add = {
       id: this.id,
       name: this.name,
@@ -56,7 +61,8 @@ export class AddEditPackagesComponent implements OnInit {
       hotels: this.selectedHotels,
       flights: this.selectedFlights,
       activities: this.selectedActivities,
-      image: this.image
+      image: this.image,
+      created_by: this.userID
     };
     console.log(add);
     this.service.addPackage(add).subscribe(res => {
@@ -158,13 +164,13 @@ updatePackage() {
     }
     if(diff['activities']){
       diff['activities'] = this.arrayToInt(diff['activities']);
-    } 
+    }
     var temp = JSON.parse(JSON.stringify(this.packageCopy));
     for (const key in diff) {
       temp[key] = diff[key];
     }
-    
-    
+
+
     const formData = new FormData();
     formData.append('id', temp.id);
     formData.append('name', temp.name);
@@ -173,6 +179,7 @@ updatePackage() {
     formData.append('hotels', temp.hotels);
     formData.append('flights', temp.flights);
     formData.append('activities', temp.activities);
+    formData.append('created_by', temp.created_by);
     for (const key in diff) {
       formData.append(key,diff[key]);
     }

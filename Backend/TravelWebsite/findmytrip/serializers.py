@@ -29,16 +29,13 @@ class PackageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Package
-        fields = ['id', 'name','description', 'duration_in_days', 'hotels', 'flights', 'activities','total_price', 'image']
+        fields = ['id', 'name','description', 'duration_in_days', 'hotels', 'flights', 'activities','total_price', 'image','created_by']
 
 
 class BookingSerializer(serializers.ModelSerializer):
-    #package = PackageSerializer(read_only=True)
-    #user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
     class Meta:
         model = Booking
-        fields = ['url', 'user', 'package', 'booked_on','guest_info']
+        fields = ['url', 'user', 'package', 'booked_on', 'guest_info']
 
 
 class RegisterSerializer(serializers.ModelSerializer):

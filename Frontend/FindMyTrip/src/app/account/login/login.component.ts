@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit{
       if (res && res.token) {
         localStorage.setItem('token', res.token);
         localStorage.setItem('isStaff', res.user.is_staff);
+        localStorage.setItem('userId', res.user.id);
         this.isLoggedIn = true;
         this.button_name = "Log Out";
         this.msg = "Login successful !";
@@ -53,6 +54,8 @@ export class LoginComponent implements OnInit{
   logOut() {
     this.service.logout().subscribe(res => {
       localStorage.removeItem('token');
+      localStorage.removeItem('isStaff');
+      localStorage.removeItem('userId');
       this.isLoggedIn = false;
       this.button_name = "Log In";
     });
