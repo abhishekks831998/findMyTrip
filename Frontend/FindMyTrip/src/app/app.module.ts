@@ -35,6 +35,7 @@ import { PackageDetailsComponent } from './package/package-details/package-detai
 import { ProfileComponent } from './profile/profile.component';
 import { MyprofileComponent } from './profile/myprofile/myprofile.component';
 import { BookingHistoryComponent } from './profile/booking-history/booking-history.component';
+import { MyProfileComponent } from './profile/my-profile/my-profile.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { BookingHistoryComponent } from './profile/booking-history/booking-histo
     PackageDetailsComponent,
     ProfileComponent,
     MyprofileComponent,
-    BookingHistoryComponent
+    BookingHistoryComponent,
+    MyProfileComponent
   ],
   imports: [
     BookingModule,
