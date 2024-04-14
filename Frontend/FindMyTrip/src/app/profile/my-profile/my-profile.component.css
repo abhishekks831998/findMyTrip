@@ -1,0 +1,71 @@
+/* Overall body and html settings to ensure full coverage of the background */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif; /* Provides a clean, modern font */
+}
+
+/* Full-screen background image setup */
+.container {
+  width: 100vw; /* Full viewport width */
+  background: url('https://source.unsplash.com/1920x1080/?office') no-repeat center center fixed; /* Replace URL with your chosen background */
+  background-size: cover; /* Covers the entire viewport */
+}
+
+ .user-info-form {
+  max-width: 800px; /* Sets a max width for the form container */
+  margin: 20px auto; /* Centers the form in the page */
+  padding: 20px;
+  background-color: #f8f9fa; /* Light grey background */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+}
+
+.user-info-form .row {
+  margin-bottom: 10px; /* Ensures consistent spacing between rows */
+}
+
+.user-info-form label {
+  background-color: #fff; /* White background */
+  color: #000; /* Black text */
+  padding: 5px 10px;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: Adds shadow for better visibility */
+}
+
+
+.user-info-form input[type="text"],
+.user-info-form input[type="email"] {
+  border-radius: 5px; /* Rounded corners for input fields */
+  border: 1px solid #ced4da; /* Matching Bootstrap's default styling */
+}
+
+.user-info-form button {
+  width: 150px; /* Fixed width for the button */
+  background-color: #007bff; /* Bootstrap primary color */
+  color: white;
+  padding: 10px; /* Padding for better touch interaction */
+  border: none;
+  border-radius: 5px; /* Rounded corners for the button */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.user-info-form button:hover {
+  background-color: #0056b3; /* Darker shade of primary color on hover */
+}
+
+.site-header, .site-footer {
+  text-align: center;
+  padding: 10px 0;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+}
+.site-header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+.site-footer p {
+  margin: 0;
+  font-size: 16px;
+}

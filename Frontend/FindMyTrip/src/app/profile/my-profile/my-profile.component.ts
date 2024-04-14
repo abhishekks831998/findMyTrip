@@ -13,29 +13,44 @@ export class MyProfileComponent implements OnInit {
   last_name: string = '';
   username: string = '';
   email: string = '';
-
+  password: string = localStorage.getItem('password') || '';
+  userID: number = Number(localStorage.getItem('userId'));
   constructor(private profileService: ProfileService) {}  // Correctly injected service
 
   ngOnInit(): void {
-    if (this.myprofile) {
-      this.id = this.myprofile.id;
-      this.first_name = this.myprofile.first_name;
-      this.last_name = this.myprofile.last_name;
-      this.username = this.myprofile.username;
-      this.email = this.myprofile.email;
-    }
+    this.getProfileByID(this.userID);
   }
 
-  getProfile() {
-    const val = {
-      id: this.id,
-      first_name: this.first_name,
-      last_name: this.last_name,
-      username: this.username,
-      email: this.email,
-    };
-    this.profileService.getProfile(val, this.id).subscribe(res => {
-      alert(res.toString());
-    });
+  getProfileByID(pk: number): void {
+    if (localStorage.getItem('token')){
+      this.profileService.getProfileByID(pk).subscribe({
+        next: (response) => {
+          this.myprofile = response;
+          this.id = this.myprofile.id;
+          this.first_name = this.myprofile.first_name;
+          this.last_name = this.myprofile.last_name;
+          this.username = this.myprofile.username;
+          this.email = this.myprofile.email;
+        },
+        error: (err) => alert('Failed to retrieve profile: ' + err)
+      });
+    }
+  }
+  onUpdate(): void {
+    if (localStorage.getItem('token')){
+      this.myprofile = {
+        id: this.userID,
+        first_name: this.first_name,
+        last_name: this.last_name,
+        username: this.username,
+        email: this.email,
+      }
+      this.profileService.updateProfile(this.myprofile, this.userID).subscribe({
+        next: (response) => {
+          alert('Profile updated successfully');
+        },
+        error: (err) => alert('Failed to update profile: ' )
+      });
+    }
   }
 }
