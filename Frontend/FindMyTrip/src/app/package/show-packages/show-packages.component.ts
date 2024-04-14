@@ -2,6 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { PackageService } from "../package.service";
 import { Router } from "@angular/router";
 
+interface Package {
+  id: number;
+  name: string;
+  description: string;
+  duration_in_days: number;
+  hotels: any;
+  flights: any;
+  activities: any;
+  image: string;
+  created_by: number;
+}
+
 @Component({
   selector: 'app-show-packages',
   templateUrl: './show-packages.component.html',
@@ -14,9 +26,12 @@ export class ShowPackagesComponent implements OnInit {
   ActivateAddEditPackageComp: boolean = false;
   OriginalPackageList: any = []; // Variable to store the original list of packages
   PackageList: any = [];
+  GeneralPackageList: Package[] = [];
+  customPackages: Package[] = [];
   package: any;
   ModelTitle: string | undefined;
   searchQuery: string = '';
+  userID = 0;
 
   ngOnInit(): void {
     this.refreshPackageList();
@@ -31,7 +46,8 @@ export class ShowPackagesComponent implements OnInit {
       hotels: {},
       flights: {},
       activities: {},
-      image: ""
+      image: "",
+      created_by: 0
     }
     this.ModelTitle = "Add Package";
     this.ActivateAddEditPackageComp = true;
@@ -52,7 +68,7 @@ export class ShowPackagesComponent implements OnInit {
     }
   }
 
-  viewPackageDetails(packageId: string, packageObj: any): void {
+  viewPackageDetails(packageId: number, packageObj: any): void {
     this.router.navigate(['/package-details', packageId], { state: { data: packageObj } });
   }
 
@@ -64,17 +80,43 @@ export class ShowPackagesComponent implements OnInit {
     }
   }
 
+  filterPackges(): void {
+    this.customPackages = [];
+    this.GeneralPackageList = [];
+    this.userID = parseInt(localStorage.getItem('userId') || '0', 10);
+    console.log(this.userID);
+    if (this.userID !== 0) {
+      for (let i = 0; i < this.PackageList.length; i++) {
+        console.log(this.PackageList[i].created_by);
+        if (this.PackageList[i].created_by === this.userID) {
+          if (!this.customPackages.includes(this.PackageList[i])) {
+            this.customPackages.push(this.PackageList[i]);
+          }
+        } else {
+          if (this.PackageList[i].created_by === 0) {
+            if (!this.GeneralPackageList.includes(this.PackageList[i])) {
+              this.GeneralPackageList.push(this.PackageList[i]);
+            }
+          }
+      }
+    }
+    console.log(this.customPackages);
+  }
+  }
+
   refreshPackageList() {
     this.service.getPackageList().subscribe(data => {
       let packages = JSON.stringify(data);
       let packageList = JSON.parse(packages);
       this.OriginalPackageList = packageList.results; // Store original list of packages
       this.PackageList = [...this.OriginalPackageList]; // Copy original list to PackageList
+      this.filterPackges();
     });
   }
 
   closeClick(): void {
     this.ActivateAddEditPackageComp = false;
+    this.refreshPackageList();
   }
 }
 

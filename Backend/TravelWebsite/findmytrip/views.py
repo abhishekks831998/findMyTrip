@@ -112,8 +112,9 @@ class PackageViewSet(viewsets.ModelViewSet):
         activities = request.data.get('activities')
         flights = request.data.get('flights')
         image = request.data.get('image')
+        created_by = request.data.get('created_by')
         Package.objects.create(name=name, description=description, duration_in_days=duration_in_days, hotels=hotels,
-                               activities=activities, flights=flights, image=image)
+                               activities=activities, flights=flights, image=image, created_by=created_by)
 
     def post(self, request, *args, **kwargs):
         self.make_data(request, *args, **kwargs)

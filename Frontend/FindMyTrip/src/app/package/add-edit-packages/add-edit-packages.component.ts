@@ -50,7 +50,6 @@ export class AddEditPackagesComponent implements OnInit {
 
   addPackage() {
     if (localStorage.getItem('isStaff') == "false") {
-      console.log("You are not authorized to add a package");
       this.userID = parseInt(localStorage.getItem('userId') || '0', 10);
     }
     var add = {
@@ -64,8 +63,8 @@ export class AddEditPackagesComponent implements OnInit {
       image: this.image,
       created_by: this.userID
     };
-    console.log(add);
     this.service.addPackage(add).subscribe(res => {
+      console.log(add);
       alert(res.toString());
     });
   }
@@ -179,7 +178,6 @@ updatePackage() {
     formData.append('hotels', temp.hotels);
     formData.append('flights', temp.flights);
     formData.append('activities', temp.activities);
-    formData.append('created_by', temp.created_by);
     for (const key in diff) {
       formData.append(key,diff[key]);
     }
@@ -197,7 +195,6 @@ updatePackage() {
     this.image = file;
     }
 
-
   ngOnInit(): void {
       this.fetchAll();
     if (this.package && this.package.id !== 0) {
@@ -213,6 +210,7 @@ updatePackage() {
       this.flights = this.selectedFlights;
       this.selectedActivities = this.package.activities;
       this.activities = this.selectedActivities;
+      this.userID = parseInt(localStorage.getItem('userId') || '0', 10);
     }
   }
 

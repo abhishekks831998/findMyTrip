@@ -56,6 +56,7 @@ export class PackageService {
     formData.append('hotels', val.hotels);
     formData.append('flights', val.flights);
     formData.append('activities', val.activities);
+    formData.append('created_by', val.created_by);
     if(val.image)
     formData.append('image', val.image, val.image.name);
     return this.http.post(this.APIUrl + '/packages/', formData, { headers: this.getFormHeaders() });

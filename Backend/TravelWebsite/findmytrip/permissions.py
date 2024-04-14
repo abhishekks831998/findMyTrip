@@ -8,6 +8,7 @@ class IsStaffReadOnly(permissions.BasePermission):
     """
 
     def has_permission(self, request, view):
+        print(request.data)
         if request.user.is_staff:
             return True
         else:
