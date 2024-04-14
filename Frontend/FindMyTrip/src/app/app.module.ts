@@ -33,7 +33,6 @@ import { HotelsearchComponent } from './hotel/hotelsearch/hotelsearch.component'
 import {ActivitysearchComponent} from './activity/activitysearch/activitysearch.component';
 import { PackageDetailsComponent } from './package/package-details/package-details.component';
 import { ProfileComponent } from './profile/profile.component';
-import { MyprofileComponent } from './profile/myprofile/myprofile.component';
 import { BookingHistoryComponent } from './profile/booking-history/booking-history.component';
 import { MyProfileComponent } from './profile/my-profile/my-profile.component';
 
@@ -61,7 +60,6 @@ import { MyProfileComponent } from './profile/my-profile/my-profile.component';
     ActivitysearchComponent,
     PackageDetailsComponent,
     ProfileComponent,
-    MyprofileComponent,
     BookingHistoryComponent,
     MyProfileComponent
   ],
