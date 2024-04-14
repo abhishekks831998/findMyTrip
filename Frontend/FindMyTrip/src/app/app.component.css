@@ -15,3 +15,8 @@
   font-size: 18px; /* Larger font size for icons */
   vertical-align: middle; /* Aligns icon with text vertically */
 }
+
+.dropdown-menu {
+  left: -30px; /* Adjust this value as needed */
+}
+
