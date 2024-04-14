@@ -21,66 +21,62 @@ interface Package {
 })
 export class ShowPackagesComponent implements OnInit {
 
-  constructor(private service: PackageService, private router: Router) { }
-
-  ActivateAddEditPackageComp: boolean = false;
-  OriginalPackageList: any = []; // Variable to store the original list of packages
-  PackageList: any = [];
+  OriginalPackageList: Package[] = [];
   GeneralPackageList: Package[] = [];
   customPackages: Package[] = [];
-  package: any;
-  ModelTitle: string | undefined;
-  searchQuery: string = '';
+  customPackageList: Package[] = [];
+  package: Package = { id: 0, name: '', description: '', duration_in_days: 0, hotels: {}, flights: {}, activities: {}, image: '', created_by: 0 };
+  ModelTitle?: string;
+  searchQuery = '';
   userID = 0;
+  PackageList: Package[] = [];
+
+  constructor(private service: PackageService, private router: Router) {}
 
   ngOnInit(): void {
     this.refreshPackageList();
   }
 
   addClick(): void {
-    this.package = {
-      id: 0,
-      name: "",
-      description: "",
-      duration_in_days: 0,
-      hotels: {},
-      flights: {},
-      activities: {},
-      image: "",
-      created_by: 0
-    }
     this.ModelTitle = "Add Package";
     this.ActivateAddEditPackageComp = true;
   }
 
-  editPackage(data: any): void {
-    this.package = data;
-    this.ActivateAddEditPackageComp = true;
+  editPackage(data: Package): void {
+    this.package = {...data};
     this.ModelTitle = "Edit Package";
+    this.ActivateAddEditPackageComp = true;
   }
 
   deletePackage(packageId: number): void {
     if (confirm('Are you sure?')) {
-      this.service.deletePackage(packageId).subscribe(data => {
-        alert(data.toString());
-        this.refreshPackageList();
+      this.service.deletePackage(packageId).subscribe({
+        next: (response) => {
+          alert('Package deleted successfully');
+          this.refreshPackageList();
+        },
+        error: (err) => alert('Failed to delete package: ' + err)
       });
     }
   }
 
-  viewPackageDetails(packageId: number, packageObj: any): void {
+  viewPackageDetails(packageId: number, packageObj: Package): void {
     this.router.navigate(['/package-details', packageId], { state: { data: packageObj } });
   }
 
   onSearch(): void {
-    if (this.searchQuery.trim() === '') {
-      this.PackageList = [...this.OriginalPackageList]; // Reset PackageList to original list when search query is empty
-    } else {
-      this.PackageList = this.OriginalPackageList.filter((pkg: any) => pkg.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
+    if(this.searchQuery.trim()===""){
+      this.GeneralPackageList = this.PackageList
+      this.customPackages = this.customPackageList
+    }
+    else{
+      this.GeneralPackageList = this.PackageList.filter((pkg: any) => pkg.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
+      this.customPackages= this.customPackageList.filter((pkg: any) => pkg.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
     }
   }
 
-  filterPackges(): void {
+  filterPackages(): void {
+    this.PackageList = this.OriginalPackageList;
     this.customPackages = [];
     this.GeneralPackageList = [];
     this.userID = parseInt(localStorage.getItem('userId') || '0', 10);
@@ -100,17 +96,29 @@ export class ShowPackagesComponent implements OnInit {
           }
       }
     }
-    console.log(this.customPackages);
   }
+    else {
+      for (let i = 0; i < this.PackageList.length; i++) {
+        if (this.PackageList[i].created_by === 0) {
+          if (!this.GeneralPackageList.includes(this.PackageList[i])) {
+            this.GeneralPackageList.push(this.PackageList[i]);
+          }
+        }
+      }
+    }
+    this.customPackageList = [...this.customPackages]
+    this.PackageList = [...this.GeneralPackageList]
   }
 
-  refreshPackageList() {
-    this.service.getPackageList().subscribe(data => {
-      let packages = JSON.stringify(data);
-      let packageList = JSON.parse(packages);
-      this.OriginalPackageList = packageList.results; // Store original list of packages
-      this.PackageList = [...this.OriginalPackageList]; // Copy original list to PackageList
-      this.filterPackges();
+  refreshPackageList(): void {
+    this.service.getPackageList().subscribe({
+      next: (data) => {
+        let packages = JSON.stringify(data);
+        let packageList = JSON.parse(packages);
+        this.OriginalPackageList = packageList.results;
+        this.filterPackages();
+      },
+      error: (err) => console.error('Error fetching packages', err)
     });
   }
 
@@ -118,7 +126,6 @@ export class ShowPackagesComponent implements OnInit {
     this.ActivateAddEditPackageComp = false;
     this.refreshPackageList();
   }
+
+  ActivateAddEditPackageComp: boolean = false;
 }
-
-
-
