@@ -11,6 +11,8 @@ import {LoginComponent} from "./account/login/login.component";
 import {RegisterComponent} from "./account/register/register.component";
 import {PackageDetailsComponent} from "./package/package-details/package-details.component";
 import {BookingHistoryComponent} from "./profile/booking-history/booking-history.component";
+import {MyProfileComponent} from "./profile/my-profile/my-profile.component";
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,7 +26,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'account', component: AccountComponent},
-  {path: 'booking-history', component: BookingHistoryComponent}
+  {path: 'booking-history', component: BookingHistoryComponent},
+  {path: 'my-profile', component: MyProfileComponent}
   // add more routes as needed
 ];
 
