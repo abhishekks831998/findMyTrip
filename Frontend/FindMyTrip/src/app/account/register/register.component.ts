@@ -15,6 +15,8 @@ export class RegisterComponent implements OnInit {
   username: string = '';
   email: string = '';
   password: string = '';
+  showErrorModal: boolean = false;
+  message = '';
   constructor(private service: AccountService) {
   }
 
@@ -29,7 +31,8 @@ export class RegisterComponent implements OnInit {
       password: this.password
     };
     this.service.getUserList(val).subscribe(res => {
-      alert(res.toString());
+      this.showErrorModal = true;
+      this.message = "User List Fetched Successfully !"
     });
   }
 
@@ -44,7 +47,8 @@ export class RegisterComponent implements OnInit {
       password: this.password
     };
     this.service.addUser(val).subscribe(res => {
-      alert(res.toString());
+      this.showErrorModal = true;
+      this.message = "User Added Successfully !"
     });
   }
 
@@ -62,6 +66,11 @@ export class RegisterComponent implements OnInit {
       alert(res.toString());
     });
   }
+
+  closeModal() {
+    this.showErrorModal = false;
+  }
+
     ngOnInit(): void {
         this.id = this.register.id;
         this.first_name = this.register.first_name;

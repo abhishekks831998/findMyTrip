@@ -1,3 +1,13 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+     [class.show]="showErrorModal" [ngStyle]="{'display': showErrorModal ? 'block' : 'none'}" (click)="closeModal()">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        {{ message }}
+      </div>
+    </div>
+  </div>
+</div>
 <div class="form-group container registration-form">
   <div class="row mb-3">
     <label class="col-sm-2 col-form-label">First Name</label>
@@ -42,13 +52,4 @@
     Register
   </button>
   <!-- Add space here -->
-  &nbsp;&nbsp;&nbsp;
-  <button (click)="updateUser()" class="btn btn-primary">
-    Update
-  </button>
-  <!-- Add space here -->
-  &nbsp;&nbsp;&nbsp;
-  <button (click)="getUserList()" class="btn btn-primary">
-    User List
-  </button>
 </div>
