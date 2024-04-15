@@ -154,4 +154,4 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'findmytripcoen@gmail.com'
-EMAIL_HOST_PASSWORD = 'Coen6311'
+EMAIL_HOST_PASSWORD = 'password'
