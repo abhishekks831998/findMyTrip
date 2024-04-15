@@ -50,34 +50,11 @@ addPerson(person:any) {
   this.people = [...this.people, person];
 }
 
-
-deletePerson(index: number) {
-  this.people = this.people.filter((_, i) => i !== index);
-}
-
-submitForm() {
-  let data = JSON.parse( JSON.stringify(this.formData))
-  data['guest_info'] = this.people;
-    this.bookingService.submitBooking(data)
-      .subscribe(
-        response => {
-          alert('Booking submitted successfully:');
-          // Reset form after successful submission
-          this.formData = {};
-          this.refreshBookingList();
-          this.formData = {};
-        },
-        error => {
-          console.error('Error submitting booking:', error);
-        }
-      );
-  }
-
   refreshBookingList(){
-    this.bookingService.getAllBookings().subscribe(data=>{
+    this.bookingService.getBookings().subscribe(data=>{
        let bookings = JSON.stringify(data);
         let bookingList = JSON.parse(bookings);
-          this.BookingList = bookingList.results;
+          this.BookingList = bookingList;
     });
   }
 

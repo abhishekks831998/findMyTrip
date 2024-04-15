@@ -1,0 +1,70 @@
+<div class="background-booking container" [style.background-image]="'url(' +packageDetails.image  + ')'">
+    <div class="booking-section" *ngIf="showBookingForm">
+
+<form  #bookingForm="ngForm" class="container booking-form" >
+    <div *ngIf="isStaff" class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="form-group">
+          <h2 for="userId">User ID</h2>
+          <select class="form-control" id="userId" name="userId" [(ngModel)]="formData.user" required>
+            <option *ngFor="let user of userList" [value]="user.id">{{ user.username }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="form-group">
+          <h2 for="packageId">Package Booking for : {{ packageDetails.name }}</h2>
+
+          <input type="number" hidden class="form-control" id="packageId" name="packageId" [(ngModel)]="formData.package" required>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="form-group">
+          <h1 for="flightInfo">Guest Info</h1>
+          
+            <app-guests [people]="people" (addPerson)="openDialog()" (deletePerson)="deletePerson($event)"></app-guests>
+          
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="row justify-content-center pay-and-book-div">
+      <div class="col-md-6">
+        <button type="submit" (click) ="togglePaymentForm()" class="btn btn-primary" [disabled]="bookingForm.invalid || people.length === 0">Pay And Book</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="payment-section" *ngIf="showPaymentForm">
+
+    <br><br><br>
+  <form class="payment-form" (stripeError)="onError($event)" (stripeToken)="onToken($event)">
+    <div class="payment-details">
+        <div class="form-group ">
+            <label>Total Amount: $ {{ packageDetails.total_price *  people.length}} </label><br>
+            <label for="cardNumber">Card Number</label>
+            <input id="cardNumber" class="stripe-input" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="expiry">Expiry</label>
+            <input id="expiry" class="stripe-input" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="cvc">CVC</label>
+            <input id="cvc" class="stripe-input" class="form-control">
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="form-group pay-and-book-div">
+        <button type="submit" (click) ="submitForm()" class="btn-pay">Pay $ {{ packageDetails.total_price *  people.length}} </button>
+    </div>
+</form>
+</div>
+</div>

@@ -74,7 +74,8 @@ class Booking(models.Model):
     package = models.ForeignKey(Package, on_delete=models.CASCADE)
     booked_on = models.DateTimeField(default=timezone.now)
     guest_info = models.JSONField(default=dict)
-
+    isCancelled = models.BooleanField(default=False)
+    paymentamount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     def get_absolute_url(self):
         return reverse('package-detail', args=[str(self.id)])
 

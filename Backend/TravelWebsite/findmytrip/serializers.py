@@ -36,7 +36,21 @@ class PackageSerializer(serializers.ModelSerializer):
 class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
-        fields = ['url', 'user', 'package', 'booked_on', 'guest_info']
+        fields = ['url', 'user', 'package', 'booked_on','guest_info', 'isCancelled', 'paymentamount']
+
+class BookingSerializerForGet(serializers.ModelSerializer):
+    package_name = serializers.SerializerMethodField()
+    user_name = serializers.SerializerMethodField()
+
+    def get_package_name(self, obj):
+        return obj.package.name
+
+    def get_user_name(self, obj):
+        return obj.user.username
+
+    class Meta:
+        model = Booking
+        fields = ['url', 'user', 'user_name', 'package', 'package_name', 'booked_on', 'guest_info', 'isCancelled', 'paymentamount']
 
 
 class RegisterSerializer(serializers.ModelSerializer):

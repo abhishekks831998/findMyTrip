@@ -8,10 +8,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { GuestsComponent } from './../commons/guests/guests.component';
 import { CommonsModule } from './../commons/commons.module';
+import { PackagebookingComponent } from './packagebooking/packagebooking.component';
 
 @NgModule({
   declarations: [
-    BookingComponent
+    BookingComponent,
+    PackagebookingComponent
   ],
   imports: [
     CommonsModule,

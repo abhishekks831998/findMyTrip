@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PackageService } from "../package/package.service";
+import {Router} from "@angular/router";
 
 interface Package {
   id: number;
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
   packageChunks: any[][] = [];
   images = [];
 
-  constructor(private packageService: PackageService) { }
+  constructor(private packageService: PackageService, private router: Router) { }
 
   fetchImages(): void {
     this.packageService.getPackageList().subscribe(data => {
@@ -39,7 +40,7 @@ export class HomeComponent implements OnInit {
   }
 
   bookNow(TravelPack: Package): void {
-    console.log("Booking package ", TravelPack);
+    this.router.navigate(['/book-package'], { queryParams: { packageInfo: JSON.stringify(TravelPack) } })
   }
 
   ngOnInit(): void {

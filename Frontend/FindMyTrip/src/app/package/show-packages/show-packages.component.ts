@@ -35,8 +35,15 @@ export class ShowPackagesComponent implements OnInit {
 
   constructor(private service: PackageService, private router: Router) {}
 
+  ActivateAddEditPackageComp: boolean = false;
+  isUserStaff: boolean = false;
+
   ngOnInit(): void {
     this.refreshPackageList();
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.isUserStaff = localStorage.getItem('isStaff') === 'true';
+    }
   }
 
   addClick(): void {
@@ -48,6 +55,12 @@ export class ShowPackagesComponent implements OnInit {
     this.package = {...data};
     this.ModelTitle = "Edit Package";
     this.ActivateAddEditPackageComp = true;
+  }
+
+  bookPackage(packageId: number): void {
+    this.service.getPackage(packageId).subscribe(data => {
+      this.router.navigate(['/book-package'], { queryParams: { packageInfo: JSON.stringify(data) } })
+    });
   }
 
   deletePackage(packageId: number): void {
@@ -73,6 +86,7 @@ export class ShowPackagesComponent implements OnInit {
   viewPackageDetails(packageId: number, packageObj: Package): void {
     this.router.navigate(['/package-details', packageId], { state: { data: packageObj } });
   }
+  
 
   onSearch(): void {
     if(this.searchQuery.trim()===""){
@@ -91,7 +105,7 @@ export class ShowPackagesComponent implements OnInit {
     this.GeneralPackageList = [];
     this.userID = parseInt(localStorage.getItem('userId') || '0', 10);
     console.log(this.userID);
-    if (this.userID !== 0) {
+    if (!this.isUserStaff) {
       for (let i = 0; i < this.PackageList.length; i++) {
         console.log(this.PackageList[i].created_by);
         if (this.PackageList[i].created_by === this.userID) {
@@ -113,6 +127,10 @@ export class ShowPackagesComponent implements OnInit {
           if (!this.GeneralPackageList.includes(this.PackageList[i])) {
             this.GeneralPackageList.push(this.PackageList[i]);
           }
+          
+        }
+        else{
+          this.customPackages.push(this.PackageList[i]);
         }
       }
     }
@@ -139,6 +157,4 @@ export class ShowPackagesComponent implements OnInit {
     this.ActivateAddEditPackageComp = false;
     this.refreshPackageList();
   }
-
-  ActivateAddEditPackageComp: boolean = false;
 }

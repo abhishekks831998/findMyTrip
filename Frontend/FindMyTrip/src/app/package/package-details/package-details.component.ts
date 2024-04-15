@@ -1,6 +1,6 @@
 import { Component , OnInit} from '@angular/core';
 import { SharedService } from "../../shared.service";
-
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-package-details',
@@ -13,7 +13,7 @@ export class PackageDetailsComponent implements OnInit {
   allFlights:{[key:number]:any}= {};
   allActivities:{[key:number]:any}= {};
 
-  constructor(private service: SharedService) {
+  constructor(private service: SharedService, private router: Router) {
   }
 
   getActivityDetails(ID:number) {
@@ -39,7 +39,7 @@ export class PackageDetailsComponent implements OnInit {
   }
 
   bookNow(TravelPack: any): void {
-    console.log("Booking package ", TravelPack);
+    this.router.navigate(['/book-package'], { queryParams: { packageInfo: JSON.stringify(TravelPack) } })
   }
 
   ngOnInit(): void {

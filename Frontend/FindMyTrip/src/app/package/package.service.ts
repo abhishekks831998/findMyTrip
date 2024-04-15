@@ -48,6 +48,10 @@ export class PackageService {
     return this.http.get<any[]>(this.APIUrl + '/packages/', { headers: this.getHeaders() });
   }
 
+  getPackage(packageId: number): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/packages/'+packageId, { headers: this.getHeaders() });
+  }
+
   addPackage(val: any) {
     const formData = new FormData();
     formData.append('name', val.name);

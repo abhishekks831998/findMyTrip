@@ -1,62 +1,25 @@
 <!-- booking-form.component.html -->
 
-<br/>
-<br/>
-
-
-<form (ngSubmit)="submitForm()" #bookingForm="ngForm" class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="userId">User ID</label>
-          <input type="number" class="form-control" id="userId" name="userId" [(ngModel)]="formData.user_id" required>
-        </div>
-      </div>
-    </div>
-  
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="packageId">Package ID</label>
-          <input type="number" class="form-control" id="packageId" name="packageId" [(ngModel)]="formData.package" required>
-        </div>
-      </div>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="flightInfo">Guest Info</label>
-          
-            <app-guests [people]="people" (addPerson)="openDialog()" (deletePerson)="deletePerson($event)"></app-guests>
-          
-        </div>
-      </div>
-    </div>
-    
-    
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <button type="submit" class="btn btn-primary" [disabled]="bookingForm.invalid">Submit</button>
-      </div>
-    </div>
-  </form>
-
-<br/>
-<br/>
-
 <div class="container ng-untouched ng-pristine ng-invalid">
   <h2>Booking History</h2>
   <table class="table table-striped">
     <thead>
       <tr>
+        <th>Booked On</th>
+        <th>Payment Amount</th>
         <th>Package</th>
+        <th>User</th>
         <th>Guest Info</th>
+        <th>Cancelled</th>
         <th>Operations</th>
       </tr>
     </thead>
     <tbody>
     <tr *ngFor="let dataItem of BookingList">
-      <td>{{dataItem.package}}</td>
+      <td>{{ dataItem.booked_on | date: 'shortDate' }}</td>
+      <td>{{ dataItem.paymentamount}}</td>
+      <td>{{dataItem.package_name}}</td>
+      <td>{{dataItem.user_name}}</td>
       <td>
         <div *ngFor="let guest of dataItem.guest_info">
           <div class="guest-info">
@@ -66,12 +29,11 @@
           </div>
       </div>
     </td>
+    <td>{{dataItem.isCancelled}}</td>
     <td>
-      <button type="button" class="btn btn-danger"
+      <button *ngIf="dataItem.isCancelled!==true" type="button" class="btn btn-danger"
       (click) = "deleteClick(dataItem)">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-          <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-        </svg>
+        Cancel
       </button>
     </tbody>
   </table>

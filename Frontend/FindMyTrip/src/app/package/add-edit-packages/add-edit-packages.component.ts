@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {PackageService} from "../package.service";
 import {of} from "rxjs";
+import { Router, ActivatedRoute  } from '@angular/router';
 
 interface Hotel {
   id: number;
@@ -47,7 +48,7 @@ export class AddEditPackagesComponent implements OnInit {
   showErrorModal: boolean = false; // For controlling error modal visibility
   message: string = "";
 
-  constructor(private service: PackageService) {
+  constructor(private router: Router, private service: PackageService) {
   }
 
   addPackage() {
@@ -68,6 +69,7 @@ export class AddEditPackagesComponent implements OnInit {
     this.service.addPackage(add).subscribe(res => {
       this.showErrorModal = true;
       this.message = "Package added successfully!";
+      this.router.navigate(['/packages']);
     });
   }
 

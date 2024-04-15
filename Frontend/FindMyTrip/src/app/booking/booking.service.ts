@@ -37,7 +37,11 @@ export class BookingService {
   }
 
   submitBooking(formData: any): Observable<any> {
-    return this.http.post<any>(this.baseURL, formData, { headers: this.getHeaders() });
+    return this.http.post<any>("http://127.0.0.1:8000/package-booking/", formData, { headers: this.getHeaders() });
+  }
+
+  getBookings(): Observable<any> {
+    return this.http.get<any>("http://127.0.0.1:8000/package-booking/", { headers: this.getHeaders() });
   }
 
   getBookingDetails(bookingId: String): Observable<any> {
@@ -48,6 +52,6 @@ export class BookingService {
     return this.http.get<any>(this.baseURL, { headers: this.getHeaders() });
   }
   deleteBooking(val:any){
-    return this.http.delete(this.baseURL +val, { headers: this.getHeaders() });
+    return this.http.delete("http://127.0.0.1:8000/cancel-package-booking/" +val, { headers: this.getHeaders() });
   }
 }

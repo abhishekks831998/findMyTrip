@@ -35,6 +35,10 @@ import { PackageDetailsComponent } from './package/package-details/package-detai
 import { ProfileComponent } from './profile/profile.component';
 import { BookingHistoryComponent } from './profile/booking-history/booking-history.component';
 import { MyProfileComponent } from './profile/my-profile/my-profile.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StripeModule } from "stripe-angular";
+import { ReportComponent } from './report/report.component'
 
 @NgModule({
   declarations: [
@@ -61,7 +65,8 @@ import { MyProfileComponent } from './profile/my-profile/my-profile.component';
     PackageDetailsComponent,
     ProfileComponent,
     BookingHistoryComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    ReportComponent
   ],
   imports: [
     BookingModule,
@@ -75,7 +80,10 @@ import { MyProfileComponent } from './profile/my-profile/my-profile.component';
     BrowserModule,
     MatToolbarModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    BrowserAnimationsModule,
+    StripeModule.forRoot("") 
   ],
   providers: [],
   bootstrap: [AppComponent]

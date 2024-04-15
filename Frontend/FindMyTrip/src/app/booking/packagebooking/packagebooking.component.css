@@ -1,0 +1,51 @@
+.pay-and-book-div{
+    padding-left: 25%;
+}
+
+.background-booking{
+    height: 600px;
+}
+
+.booking-form{
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.payment-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.payment-details {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+}
+
+.stripe-input {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.btn-pay {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-pay:hover {
+    background-color: #0056b3;
+}
