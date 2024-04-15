@@ -44,6 +44,8 @@ export class AddEditPackagesComponent implements OnInit {
   flightsDict: any | {} | undefined;
   activitiesDict: any | {} | undefined;
   userID = 0;
+  showErrorModal: boolean = false; // For controlling error modal visibility
+  message: string = "";
 
   constructor(private service: PackageService) {
   }
@@ -64,8 +66,8 @@ export class AddEditPackagesComponent implements OnInit {
       created_by: this.userID
     };
     this.service.addPackage(add).subscribe(res => {
-      console.log(add);
-      alert(res.toString());
+      this.showErrorModal = true;
+      this.message = "Package added successfully!";
     });
   }
 
@@ -185,7 +187,8 @@ updatePackage() {
       formData.append('image', this.image, this.image.name);
     }
     this.service.updatePackage(formData, this.id).subscribe(res => {
-      alert(res.toString());
+      this.showErrorModal = true;
+      this.message = "Package updated successfully!";
     });
   }
 
@@ -193,6 +196,10 @@ updatePackage() {
     const target = event.target as HTMLInputElement;
     const file: File = (target.files as FileList)[0];
     this.image = file;
+    }
+
+    closeModal() {
+      this.showErrorModal = false;
     }
 
   ngOnInit(): void {

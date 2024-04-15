@@ -15,7 +15,6 @@ export class RegisterComponent implements OnInit {
   username: string = '';
   email: string = '';
   password: string = '';
-
   constructor(private service: AccountService) {
   }
 

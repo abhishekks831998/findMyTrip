@@ -13,6 +13,8 @@ export class AddEditFlightComponent implements OnInit {
   flight_number: string | undefined;
   airline: string | undefined;
   flight_price: | undefined;
+  showErrorModal: boolean = false; // For controlling error modal visibility
+  message: string = "";
 
   constructor(private service: SharedService) { }
 
@@ -22,7 +24,8 @@ export class AddEditFlightComponent implements OnInit {
               airline:this.airline,
               flight_price:this.flight_price};
     this.service.addFlight(val).subscribe(res=>{
-      alert(res.toString());
+      this.showErrorModal = true;
+      this.message = "Flight added successfully!";
     });
 
   }
@@ -32,9 +35,14 @@ export class AddEditFlightComponent implements OnInit {
               airline:this.airline,
               flight_price:this.flight_price};
     this.service.updateFlight(val,this.id).subscribe(res=>{
-      alert(res.toString());
+      this.showErrorModal = true;
+      this.message = "Flight updated successfully!";
     });
 
+  }
+
+  closeModal(){
+    this.showErrorModal = false;
   }
 
   ngOnInit(): void {

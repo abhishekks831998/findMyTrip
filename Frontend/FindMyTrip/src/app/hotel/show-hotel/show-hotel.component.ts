@@ -11,6 +11,8 @@ export class ShowHotelComponent implements OnInit{
   ModalTitle: any;
   query: string = ''; // Define query property here
   isUserStaff: boolean = false;
+  showErrorModal: boolean = false;
+  message: string = '';
 
   constructor(private service:SharedService, private cdRef: ChangeDetectorRef) { }
 
@@ -57,11 +59,16 @@ export class ShowHotelComponent implements OnInit{
   deleteClick(item: any){
     if(confirm('Are you sure??')){
       this.service.deleteHotel(item.id).subscribe(data=>{
-        alert(data.toString());
-        this.cdRef.detectChanges()
+        this.showErrorModal = true;
+        this.message = "Hotel deleted successfully!";
       });
     }
      this.refreshHotelList(null);
+  }
+
+  closeModal(){
+    this.refreshHotelList(null);
+    this.showErrorModal = false;
   }
 
   refreshHotelList(searchResult: any){
@@ -69,21 +76,25 @@ export class ShowHotelComponent implements OnInit{
       this.HotelList = searchResult;
     }
     else {
-      this.service.getHotelList().subscribe(data=>{
-      let hotels = JSON.stringify(data);
-      let hotelList = JSON.parse(hotels);
-      this.HotelList = hotelList.results;
-
-      if (this.query) {
-        // Filter the FlightList based on the search query
-        this.HotelList = this.HotelList.filter((hotel: any) =>
-          hotel.name.toLowerCase().includes(this.query.toLowerCase()) ||
-          hotel.address.toLowerCase().includes(this.query.toLowerCase())
-          );
-      }
-    });
+      this.service.getHotelList().subscribe({
+        next:data=> {
+          let hotels = JSON.stringify(data);
+          let hotelList = JSON.parse(hotels);
+          this.HotelList = hotelList.results;
+        },
+        error: (err) => {
+          this.message = 'Error fetching hotel list';
+          this.showErrorModal = true;
+        }
+      });
+          if (this.query) {
+            // Filter the FlightList based on the search query
+            this.HotelList = this.HotelList.filter((hotel: any) =>
+              hotel.name.toLowerCase().includes(this.query.toLowerCase()) ||
+              hotel.address.toLowerCase().includes(this.query.toLowerCase())
+            );
+          }
     }
-
   }
 }
 

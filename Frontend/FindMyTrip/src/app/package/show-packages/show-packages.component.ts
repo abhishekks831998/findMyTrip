@@ -30,6 +30,8 @@ export class ShowPackagesComponent implements OnInit {
   searchQuery = '';
   userID = 0;
   PackageList: Package[] = [];
+  showErrorModal = false;
+  message = '';
 
   constructor(private service: PackageService, private router: Router) {}
 
@@ -52,12 +54,20 @@ export class ShowPackagesComponent implements OnInit {
     if (confirm('Are you sure?')) {
       this.service.deletePackage(packageId).subscribe({
         next: (response) => {
-          alert('Package deleted successfully');
+          this.message = 'Package deleted successfully';
+          this.showErrorModal = true;
           this.refreshPackageList();
         },
-        error: (err) => alert('Failed to delete package: ' + err)
+        error: (err) => {
+          this.message = 'Error deleting package';
+          this.showErrorModal = true;
+        }
       });
     }
+  }
+  closeModal(): void {
+    this.showErrorModal = false;
+    this.refreshPackageList();
   }
 
   viewPackageDetails(packageId: number, packageObj: Package): void {
@@ -118,7 +128,10 @@ export class ShowPackagesComponent implements OnInit {
         this.OriginalPackageList = packageList.results;
         this.filterPackages();
       },
-      error: (err) => console.error('Error fetching packages', err)
+      error: (err) => {
+        this.message = 'Error retrieving package list';
+        this.showErrorModal = true;
+      }
     });
   }
 

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Hotel, Flight, Activity, Package, Booking
 from django.contrib.auth.models import User as BaseUser
+from rest_framework import request
 
 
 class HotelSerializer(serializers.ModelSerializer):
@@ -48,16 +49,6 @@ class RegisterSerializer(serializers.ModelSerializer):
                         'username': {'required': True},
                         'email': {'required': True},
                         'password': {'write_only': True}}
-
-    def validate_username(self, value):
-        if BaseUser.objects.filter(username=value).exists():
-            raise serializers.ValidationError("This username is already in use.")
-        return value
-
-    def validate_email(self, value):
-        if BaseUser.objects.filter(email=value).exists():
-            raise serializers.ValidationError("This email address is already in use.")
-        return value
 
     def create(self, validated_data):
         User = BaseUser.objects.create_user(**validated_data)

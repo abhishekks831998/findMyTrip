@@ -13,6 +13,8 @@ export class AddEditHotelComponent implements OnInit {
   name: string | undefined;
   address: string | undefined;
   hotel_price: number | undefined;
+  message: string = "";
+  showErrorModal: boolean = false; // For controlling error modal visibility
 
   constructor(private service: SharedService) { }
 
@@ -22,7 +24,8 @@ export class AddEditHotelComponent implements OnInit {
               address:this.address,
               hotel_price:this.hotel_price};
     this.service.addHotel(val).subscribe(res=>{
-      alert(res.toString());
+      this.showErrorModal = true;
+      this.message = "Hotel added successfully!";
     });
 
   }
@@ -32,9 +35,14 @@ export class AddEditHotelComponent implements OnInit {
               address:this.address,
               hotel_price:this.hotel_price};
     this.service.updateHotel(val,this.id).subscribe(res=>{
-      alert(res.toString());
+      this.showErrorModal = true;
+      this.message = "Hotel updated successfully!";
     });
 
+  }
+
+  closeModal(){
+    this.showErrorModal = false;
   }
 
   ngOnInit(): void {

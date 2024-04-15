@@ -45,12 +45,12 @@ export class MyProfileComponent implements OnInit {
         username: this.username,
         email: this.email,
       }
-      this.profileService.updateProfile(this.myprofile, this.userID).subscribe({
-        next: (response) => {
-          alert('Profile updated successfully');
-        },
-        error: (err) => alert('Failed to update profile: ' )
-      });
+      // this.profileService.updateProfile(this.myprofile, this.userID).subscribe({
+      //   next: (response) => {
+      //     alert('Profile updated successfully');
+      //   },
+      //   error: (err) => alert('Failed to update profile: ' )
+      // });
     }
   }
 }

@@ -11,7 +11,8 @@ export class ShowActivityComponent implements OnInit{
 ModalTitle: any;
 query: string = '';
 isUserStaff: boolean = false;
-
+showErrorModal: boolean = false;
+message: string = '';
 
   constructor(private service:SharedService, private cdRef: ChangeDetectorRef) { }
 
@@ -56,11 +57,16 @@ isUserStaff: boolean = false;
   deleteClick(item: any){
     if(confirm('Are you sure??')){
       this.service.deleteActivity(item.id).subscribe(data=>{
-        alert(data.toString());
-        this.cdRef.detectChanges()
+        this.showErrorModal = true;
+        this.message = 'Activity deleted successfully!';
       });
     }
     this.refreshActivityList(null);
+  }
+
+  closeModal(){
+    this.refreshActivityList(null);
+    this.showErrorModal = false;
   }
 
   refreshActivityList(searchResult: any){
@@ -69,11 +75,17 @@ isUserStaff: boolean = false;
     }
 
     else{
-    this.service.getActivityList().subscribe(data=>{
-       let activities = JSON.stringify(data);
+    this.service.getActivityList().subscribe({
+      next: (data) => {
+        let activities = JSON.stringify(data);
         let activityList = JSON.parse(activities);
-          this.ActivityList = activityList.results;
-
+        this.ActivityList = activityList.results;
+      },
+      error: (err) => {
+        this.message = 'Error loading activity list';
+        this.showErrorModal = true;
+      }
+    });
       if (this.query) {
         // Filter the FlightList based on the search query
         this.ActivityList = this.ActivityList.filter((activity: any) =>
@@ -81,12 +93,6 @@ isUserStaff: boolean = false;
           activity.description.toLowerCase().includes(this.query.toLowerCase())
         );
       }
-    });
-
     }
-
-
-
-
   }
 }

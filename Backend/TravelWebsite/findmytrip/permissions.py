@@ -8,13 +8,10 @@ class IsStaffReadOnly(permissions.BasePermission):
     """
 
     def has_permission(self, request, view):
-        if permissions.IsAuthenticated:
-            if request.user.is_staff:
+        if request.user.is_staff:
+            return True
+        else:
+            if request.method in ['GET', 'POST', 'DELETE']:
                 return True
             else:
-                if request.method in ['GET', 'POST', 'DELETE']:
-                    return True
-                else:
-                    return False
-        else:
-            return False
+                return False

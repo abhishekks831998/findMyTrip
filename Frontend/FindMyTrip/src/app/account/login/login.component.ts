@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit{
       localStorage.removeItem('token');
       localStorage.removeItem('isStaff');
       localStorage.removeItem('userId');
+      localStorage.removeItem('password');
       this.isLoggedIn = false;
       this.button_name = "Log In";
     });

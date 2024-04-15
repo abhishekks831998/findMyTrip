@@ -1,23 +1,32 @@
-<div class = "form-group row">
-    <label class = "col-sm-2 col-form-label"> Activity Title</label>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+     [class.show]="showErrorModal" [ngStyle]="{'display': showErrorModal ? 'block' : 'none'}" (click)="closeModal()">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        {{ message }}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label">Activity Title</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" [(ngModel)]="title" placeholder="Enter Activity Title">
     </div>
-    <label class = "col-sm-2 col-form-label"> Activity Description</label>
-     <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="description" placeholder="Enter Activity description">
+    <label class="col-sm-2 col-form-label">Activity Description</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [(ngModel)]="description" placeholder="Enter Activity Description">
     </div>
-  <label class = "col-sm-2 col-form-label"> Activity Price</label>
-  <div class="col-sm-10">
-    <input type="text" class="form-control" [(ngModel)]="activity_price" placeholder="Enter Activity price">
-  </div>
+    <label class="col-sm-2 col-form-label">Activity Price</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [(ngModel)]="activity_price" placeholder="Enter Activity Price">
+    </div>
 </div>
-  <button (click) ="addActivity()" *ngIf="activity.id==0" class="btn btn-primary">
-    Add
-  </button>
-  <button (click) ="updateActivity()" *ngIf="activity.id!=0" class="btn btn-primary">
-    Update
-  </button>
-
-
-
+<button (click)="addActivity()" *ngIf="!activity.id" class="btn btn-primary">
+  Add
+</button>
+<button (click)="updateActivity()" *ngIf="activity.id" class="btn btn-primary">
+  Update
+</button>

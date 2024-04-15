@@ -11,6 +11,8 @@ export class ShowFlightComponent implements OnInit {
   ModalTitle: any;
   query: string = ''; // Define query property here
   isUserStaff: boolean = false;
+  showErrorModal: boolean = false;
+  message: string = '';
 
 
   constructor(private service: SharedService, private cdRef: ChangeDetectorRef) { }
@@ -56,11 +58,16 @@ export class ShowFlightComponent implements OnInit {
   deleteClick(item: any) {
     if (confirm('Are you sure??')) {
       this.service.deleteFlight(item.id).subscribe(data => {
-        alert(data.toString());
-        this.cdRef.detectChanges();
+        this.showErrorModal = true;
+        this.message = "Flight deleted successfully!";
       });
     }
     this.refreshFlightList(null);
+  }
+
+  closeModal() {
+    this.refreshFlightList(null);
+    this.showErrorModal = false;
   }
 
   refreshFlightList(searchResult: any) {
@@ -68,20 +75,24 @@ export class ShowFlightComponent implements OnInit {
       this.FlightList = searchResult;
     }
     else{
-      this.service.getFlightList().subscribe(data => {
-      let flights = JSON.stringify(data);
-      let flightList = JSON.parse(flights);
-      this.FlightList = flightList.results;
-
-      if (this.query) {
-        // Filter the FlightList based on the search query
-        this.FlightList = this.FlightList.filter((flight: any) =>
-          flight.flight_number.toLowerCase().includes(this.query.toLowerCase()) ||
-          flight.airline.toLowerCase().includes(this.query.toLowerCase())
-        );
-      }
-    });
+      this.service.getFlightList().subscribe({
+        next: data => {
+          let flights = JSON.stringify(data);
+          let flightList = JSON.parse(flights);
+          this.FlightList = flightList.results;
+        },
+        error: err => {
+          this.message = 'Error fetching flight list';
+          this.showErrorModal = true;
+        }
+      });
+          if (this.query) {
+            // Filter the FlightList based on the search query
+            this.FlightList = this.FlightList.filter((flight: any) =>
+              flight.flight_number.toLowerCase().includes(this.query.toLowerCase()) ||
+              flight.airline.toLowerCase().includes(this.query.toLowerCase())
+            );
+          }
+        }
     }
-
   }
-}

@@ -79,6 +79,14 @@ class HotelViewSet(viewsets.ModelViewSet):
     filterset_fields = ["name", "address"]
     search_fields = ["name", "address"]
 
+    def post(self):
+        return HttpResponse({"status":"200"}, status=200)
+
+    def put(self):
+        return HttpResponse({"status":"200"}, status=200)
+
+    def delete(self):
+        return HttpResponse({"status":"200"}, status=200)
 
 class FlightViewSet(viewsets.ModelViewSet):
     queryset = Flight.objects.all()
@@ -87,6 +95,15 @@ class FlightViewSet(viewsets.ModelViewSet):
     filterset_fields = ["flight_number", "airline"]
     search_fields = ["flight_number", "airline"]
 
+    def post(self):
+        return HttpResponse({"status":"200"}, status=200)
+
+    def put(self):
+        return HttpResponse({"status":"200"}, status=200)
+
+    def delete(self):
+        return HttpResponse({"status":"200"}, status=200)
+
 
 class ActivityViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.all()
@@ -94,6 +111,15 @@ class ActivityViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ["title", "description"]
     search_fields = ["title", "description"]
+
+    def post(self):
+        return HttpResponse({"status":"200"}, status=200)
+
+    def put(self):
+        return HttpResponse({"status":"200"}, status=200)
+
+    def delete(self):
+        return HttpResponse({"status":"200"}, status=200)
 
 
 class PackageViewSet(viewsets.ModelViewSet):
@@ -118,11 +144,11 @@ class PackageViewSet(viewsets.ModelViewSet):
 
     def post(self, request, *args, **kwargs):
         self.make_data(request, *args, **kwargs)
-        return HttpResponse({'message': 'Package created successfully'}, status=200)
+        return HttpResponse({"status":"200"}, status=200)
 
     def put(self, request, *args, **kwargs):
         self.make_data(request, *args, **kwargs)
-        return HttpResponse({'message': 'Package Updated successfully'})
+        return HttpResponse({"status":"200"},status=200)
 
 
 @csrf_exempt
